@@ -1,0 +1,16 @@
+apply plugin: 'application'
+
+repositories {
+    mavenCentral()
+}
+
+sourceSets {
+    main {
+        java.srcDirs = ['src']
+    }
+}
+
+mainClassName = "main/java/com/preston/StockGeneratorDao"
+dependencies {
+    compile('org.greenrobot:greendao-generator:3.1.0')
+}
