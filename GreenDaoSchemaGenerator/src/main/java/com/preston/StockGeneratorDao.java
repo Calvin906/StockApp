@@ -36,7 +36,7 @@ public class StockGeneratorDao {
     }
 
     public static Schema attachStockEntities(Schema schema) {
-        new StockEntity("StockEntity").attachTo(schema);
+        new StockEntity("Stock").attachTo(schema);
         return schema;
     }
 }
