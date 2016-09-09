@@ -1,0 +1,55 @@
+package preston.com.stockapp;
+
+import android.graphics.Typeface;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.TextView;
+
+/**
+ * Created by Alex Preston on 9/5/16.
+ */
+public class HomeActivity extends AppCompatActivity {
+
+    private TextView welcome;
+    private TextView signUp;
+    private TextView login;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.home_activity);
+
+        welcome = (TextView)findViewById(R.id.welcome_home);
+        signUp = (TextView)findViewById(R.id.sign_up_home);
+        login = (TextView)findViewById(R.id.login_home);
+
+        Typeface face = Typeface.createFromAsset(getAssets(), "bondini.ttf");
+        welcome.setTypeface(face);
+        signUp.setTypeface(face);
+        login.setTypeface(face);
+
+        signUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signUpFrag();
+            }
+        });
+
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loginFragment();
+            }
+        });
+
+    }
+
+    public void signUpFrag() {
+
+    }
+
+    public void loginFragment() {
+
+    }
+}
