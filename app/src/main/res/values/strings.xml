@@ -1,7 +1,7 @@
 <resources>
     <string name="home_banner">Stocks</string>
     <string name="welcome_home">Welcome</string>
-    <string name="login">Login</string>\
+    <string name="login">Login</string>
     <string name="sign_up">Sign Up</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
