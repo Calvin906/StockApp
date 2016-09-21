@@ -26,8 +26,6 @@ public class SignUpFragment extends DialogFragment {
 
 
         View view = inflater.inflate(R.layout.sign_up_view, container);
-
-
         return view;
     }
 }
