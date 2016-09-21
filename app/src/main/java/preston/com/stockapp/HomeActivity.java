@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
+import preston.com.stockapp.util.LoginFragment;
 import preston.com.stockapp.util.SignUpFragment;
 
 /**
@@ -57,10 +58,11 @@ public class HomeActivity extends AppCompatActivity {
         FragmentManager manager = getSupportFragmentManager();
         SignUpFragment fragment = new SignUpFragment();
         fragment.show(manager, "Fragment SignUp");
-
     }
 
     public void loginFragment() {
-
+        FragmentManager manager = getSupportFragmentManager();
+        LoginFragment fragment = new LoginFragment();
+        fragment.show(manager, "Fragment Login");
     }
 }

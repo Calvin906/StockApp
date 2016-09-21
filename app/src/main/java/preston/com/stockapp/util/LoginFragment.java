@@ -14,19 +14,17 @@ import preston.com.stockapp.R;
  * Created by Alex Preston on 9/20/16.
  */
 
-public class SignUpFragment extends DialogFragment {
+public class LoginFragment extends DialogFragment {
 
-
-    public SignUpFragment() {
+    public LoginFragment() {
 
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-        View view = inflater.inflate(R.layout.sign_up_view, container);
-        TextView cancel = (TextView) view.findViewById(R.id.cancel_button_sign_up);
+        View view = inflater.inflate(R.layout.login_view, container);
+        TextView cancel = (TextView) view.findViewById(R.id.cancel_button_login);
 
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -34,8 +32,7 @@ public class SignUpFragment extends DialogFragment {
                 dismiss();
             }
         });
+
         return view;
     }
-
-
 }
