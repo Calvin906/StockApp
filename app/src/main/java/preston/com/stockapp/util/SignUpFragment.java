@@ -3,6 +3,11 @@ package preston.com.stockapp.util;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import preston.com.stockapp.R;
 
 /**
  * Created by Alex Preston on 9/20/16.
@@ -11,18 +16,18 @@ import android.support.v4.app.DialogFragment;
 public class SignUpFragment extends DialogFragment {
 
 
-    static SignUpFragment newInstance(int num) {
-        SignUpFragment fragment = new SignUpFragment();
+   public SignUpFragment() {
 
-        Bundle args = new Bundle();
-        args.putInt("num", num);
-        fragment.setArguments(args);
+   }
 
-        return fragment;
-    }
-
+    @Nullable
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+
+        View view = inflater.inflate(R.layout.sign_up_view, container);
+
+
+        return view;
     }
 }

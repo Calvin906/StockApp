@@ -33,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/login_home"
-            android:text="@string/sign_up_home"
+            android:text="@string/sign_up"
             android:layout_marginLeft="@dimen/button_spacing"
             android:textSize="@dimen/button_text_size"
             />

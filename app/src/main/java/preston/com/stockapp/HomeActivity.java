@@ -2,9 +2,12 @@ package preston.com.stockapp;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
+
+import preston.com.stockapp.util.SignUpFragment;
 
 /**
  * Created by Alex Preston on 9/5/16.
@@ -20,9 +23,9 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_activity);
 
-        welcome = (TextView)findViewById(R.id.welcome_home);
-        signUp = (TextView)findViewById(R.id.sign_up_home);
-        login = (TextView)findViewById(R.id.login_home);
+        welcome = (TextView) findViewById(R.id.welcome_home);
+        signUp = (TextView) findViewById(R.id.sign_up_home);
+        login = (TextView) findViewById(R.id.login_home);
 
         Typeface face = Typeface.createFromAsset(getAssets(), "bondini.ttf");
         welcome.setTypeface(face);
@@ -45,7 +48,15 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * A method which is called when the signup text is clicked
+     * Starts a pop up dialog
+     */
     public void signUpFrag() {
+
+        FragmentManager manager = getSupportFragmentManager();
+        SignUpFragment fragment = new SignUpFragment();
+        fragment.show(manager, "Fragment SignUp");
 
     }
 

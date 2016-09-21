@@ -4,40 +4,59 @@
                 android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/sign_up_frag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/sign_up_frag"
-        android:text="@string/sign_up"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:text="@string/sign_up"/>
 
     <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/email_sign_up_frag"
-        android:hint="@string/email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@id/sign_up_frag"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"/>
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:hint="@string/email"/>
 
     <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/password_sign_up_frag"
-        android:hint="@string/password"
-        android:layout_below="@id/email_sign_up_frag"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"/>
-
-    <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/confirm_password_sign_up_frag"
-        android:hint="@string/password_confirm"
-        android:layout_below="@id/password_sign_up_frag"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_below="@id/email_sign_up_frag"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"/>
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:hint="@string/password"/>
+
+    <EditText
+        android:id="@+id/confirm_password_sign_up_frag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/password_sign_up_frag"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:hint="@string/password_confirm"/>
+
+    <TextView
+        android:id="@+id/button_text_sign_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/confirm_password_sign_up_frag"
+        android:layout_marginRight="@dimen/button_spacing"
+        android:layout_toLeftOf="@+id/button_text_cancel"
+        android:text="@string/sign_up"
+        />
+
+    <TextView
+        android:id="@+id/button_text_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:text="@string/cancel"
+        />
 
 </RelativeLayout>
