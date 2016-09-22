@@ -1,5 +1,6 @@
 package preston.com.stockapp;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -44,6 +45,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 loginFragment();
+                startPortfolioPage();
             }
         });
 
@@ -60,9 +62,20 @@ public class HomeActivity extends AppCompatActivity {
         fragment.show(manager, "Fragment SignUp");
     }
 
+    /**
+     * Launches the portfolio frag
+     */
     public void loginFragment() {
         FragmentManager manager = getSupportFragmentManager();
         LoginFragment fragment = new LoginFragment();
         fragment.show(manager, "Fragment Login");
+    }
+
+    /**
+     * Starts the portfolio page
+     */
+    public void startPortfolioPage(){
+        Intent intent = new Intent(this, PortfolioActivity.class);
+        startActivity(intent);
     }
 }
