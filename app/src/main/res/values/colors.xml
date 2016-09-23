@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimary">#009688</color>
+    <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="secondaryButtonColor">#418F8C</color>
+    <color name="hintTextColor">#FAF7F7</color>
+    <color name="textfieldColorMain">#4bd8d8d8</color>
+    <color name="textfieldColorSignUp">#c9e9e9e9</color>
+    <color name="textColor">#9ffaf7f7</color>
+    <color name="statusBar">#00faf7f7</color>
 </resources>
