@@ -45,7 +45,7 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/button_text_login"
+        android:id="@+id/buttons_text_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"

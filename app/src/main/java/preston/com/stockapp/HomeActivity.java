@@ -1,6 +1,5 @@
 package preston.com.stockapp;
 
-import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -14,7 +13,7 @@ import preston.com.stockapp.util.SignUpFragment;
 /**
  * Created by Alex Preston on 9/5/16.
  */
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView welcome;
     private TextView signUp;
@@ -29,30 +28,31 @@ public class HomeActivity extends AppCompatActivity {
         signUp = (TextView) findViewById(R.id.sign_up_home);
         login = (TextView) findViewById(R.id.login_home);
 
-        Typeface face = Typeface.createFromAsset(getAssets(), "bondini.ttf");
-        welcome.setTypeface(face);
-        signUp.setTypeface(face);
-        login.setTypeface(face);
+        signUp.setOnClickListener(this);
+        login.setOnClickListener(this);
 
-        signUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                signUpFrag();
-            }
-        });
-
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loginFragment();
-                startPortfolioPage();
-            }
-        });
+        setFonts();
 
     }
 
     /**
-     * A method which is called when the signup text is clicked
+     * onClick method dictates which button was clicked
+     * @param v
+     */
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.sign_up_home:
+                signUpFrag();
+                break;
+            case R.id.login_home:
+                loginFragment();
+                break;
+        }
+    }
+
+    /**
+     * A method which is called when the sign up text is clicked
      * Starts a pop up dialog
      */
     public void signUpFrag() {
@@ -72,10 +72,15 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     /**
-     * Starts the portfolio page
+     * Sets the fonts for the homepage
      */
-    public void startPortfolioPage(){
-        Intent intent = new Intent(this, PortfolioActivity.class);
-        startActivity(intent);
+    public void setFonts() {
+
+        Typeface face = Typeface.createFromAsset(getAssets(), "bondini.ttf");
+        welcome.setTypeface(face);
+        signUp.setTypeface(face);
+        login.setTypeface(face);
     }
+
+
 }

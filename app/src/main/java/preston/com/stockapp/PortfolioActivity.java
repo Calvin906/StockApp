@@ -1,20 +1,17 @@
 package preston.com.stockapp;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.support.v7.app.AppCompatActivity;
-
-import preston.com.stockapp.R;
 
 /**
  * Created by Alex Preston on 9/21/16.
  */
 
-public class PortfolioActivity extends AppCompatActivity {
+public class PortfolioActivity extends Activity {
 
     @Override
-    public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.portfolio_activity);
     }
 }
