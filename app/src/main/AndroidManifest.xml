@@ -22,6 +22,11 @@
             android:name=".PortfolioActivity"
             android:label=""
             />
+        <activity
+            android:name=".SearchActivity"
+            android:label=""
+            />
     </application>
+
 
 </manifest>
