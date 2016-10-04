@@ -1,4 +1,6 @@
 <resources>
+
+    <!-- Home Activity -->
     <string name="home_banner">Stocks</string>
     <string name="welcome_home">Welcome</string>
     <string name="login">Login</string>
@@ -6,8 +8,21 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="password_confirm">Confirm Password</string>
+
+    <!-- Generic texts -->
     <string name="cancel">Cancel</string>
     <string name="add">Add</string>
     <string name="refresh">Refresh</string>
+
+    <!-- Search Page -->
     <string name="recently_searched">Recently Searched</string>
+
+    <!-- Individual stock page -->
+    <string name="company_name_default">Company Name</string>
+    <string name="company_ticker_default">Ticker</string>
+    <string name="num_shares_default"># of Desired Shares</string>
+    <string name="date_purchased_default">Date of Purchase</string>
+    <string name="price_purchased_default">Price Purchased At</string>
+    <string name="stock_price_default">$0.00</string>
+    <string name="stock_percent_default">+1.0</string>
 </resources>
