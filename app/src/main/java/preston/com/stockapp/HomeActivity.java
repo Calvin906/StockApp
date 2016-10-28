@@ -1,5 +1,6 @@
 package preston.com.stockapp;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -45,7 +46,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 signUpFrag();
                 break;
             case R.id.login_home:
-
+                singInActivity();
                 break;
         }
     }
@@ -59,6 +60,14 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         FragmentManager manager = getSupportFragmentManager();
         SignUpFragment fragment = new SignUpFragment();
         fragment.show(manager, "Fragment SignUp");
+    }
+
+    /**
+     * A method to call the sign in Activity.
+     */
+    public void singInActivity() {
+        Intent intent = new Intent(this, SignInActivity.class);
+        startActivity(intent);
     }
 
     /**
