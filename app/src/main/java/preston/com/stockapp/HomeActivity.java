@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
-import preston.com.stockapp.util.LoginFragment;
 import preston.com.stockapp.util.SignUpFragment;
 
 /**
@@ -46,7 +45,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 signUpFrag();
                 break;
             case R.id.login_home:
-                loginFragment();
+
                 break;
         }
     }
@@ -60,15 +59,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         FragmentManager manager = getSupportFragmentManager();
         SignUpFragment fragment = new SignUpFragment();
         fragment.show(manager, "Fragment SignUp");
-    }
-
-    /**
-     * Launches the portfolio frag
-     */
-    public void loginFragment() {
-        FragmentManager manager = getSupportFragmentManager();
-        LoginFragment fragment = new LoginFragment();
-        fragment.show(manager, "Fragment Login");
     }
 
     /**

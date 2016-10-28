@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+    <RelativeLayout
+        android:id="@+id/investment_block"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        >
+
+        <TextView
+            android:id="@+id/investment_PL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/investment_total_text"
+            />
+
+        <TextView
+            android:id="@+id/investment_num_Pl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin_x1.5"
+            android:layout_toRightOf="@+id/investment_PL"
+            android:text="@string/investment_total_default_num"/>
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/stock_list_recyclerview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/investment_block"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin_x2"
+        android:layout_marginRight="@dimen/activity_horizontal_margin_x2"
+        android:layout_marginTop="@dimen/activity_vertical_margin_x2">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/profit_loss_block"
+        android:layout_below="@id/stock_list_recyclerview"
+        android:layout_marginTop="@dimen/activity_vertical_margin_x2"
+        android:layout_centerHorizontal="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/total_text_PL"
+            android:text="@string/total_pl_text"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/total_amount_PL"
+            android:text="@string/total_pl_default_num"
+            android:layout_toRightOf="@id/total_text_PL"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin_x2"/>
+    </RelativeLayout>
+</RelativeLayout>
