@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "56389852150",
+    "project_id": "firebase-stockapp"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:56389852150:android:4e444938beb7957a",
+        "android_client_info": {
+          "package_name": "preston.com.stockapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "56389852150-k7ct5m69ike3a3ihh6i0h104j91tl5te.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "preston.com.stockapp",
+            "certificate_hash": "87EFDEF5B0EE7DCA02914780CE98FC5B55FAC7AD"
+          }
+        },
+        {
+          "client_id": "56389852150-v391ortgufaec4teio84rfg4o71amepn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDcbquUQrtSt6MiljMRwUcG3WkVLXiI5SM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,12 +1,27 @@
 <resources>
-    <!-- Default screen margins, per the Android Design guidelines. -->
+    <!-- Spacing related dimens. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_horizontal_margin_x1.5">24dp</dimen>
+    <dimen name="activity_horizontal_margin_x2">36dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin_x1.5">24dp</dimen>
+    <dimen name="activity_vertical_margin_x2">36dp</dimen>
     <dimen name="spacing_sides">32dp</dimen>
+    <dimen name="spacing_sides_x1.5">48dp</dimen>
+    <dimen name="spacing_sides_x2">64dp</dimen>
+    <dimen name="search_bar_spacing">12dp</dimen>
     <dimen name="vertical_start">172dp</dimen>
-    <dimen name="button_spacing">48dp</dimen>
+
+
+    <!-- Text Related dimens -->
     <dimen name="welcome_text_size">72dp</dimen>
     <dimen name="medium_text_size">18dp</dimen>
+    <dimen name="large_text_size">24dp</dimen>
+
+
+    <!-- Button Related dimens -->
     <dimen name="button_height">28dp</dimen>
     <dimen name="button_width">56dp</dimen>
+    <dimen name="button_spacing">48dp</dimen>
+
 </resources>

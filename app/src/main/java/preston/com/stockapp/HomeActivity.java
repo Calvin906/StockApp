@@ -1,5 +1,6 @@
 package preston.com.stockapp;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -7,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
-import preston.com.stockapp.util.LoginFragment;
 import preston.com.stockapp.util.SignUpFragment;
 
 /**
@@ -17,7 +17,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     private TextView welcome;
     private TextView signUp;
-    private TextView login;
+    private TextView signIn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,10 +26,10 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
         welcome = (TextView) findViewById(R.id.welcome_home);
         signUp = (TextView) findViewById(R.id.sign_up_home);
-        login = (TextView) findViewById(R.id.login_home);
+        signIn = (TextView) findViewById(R.id.sign_in);
 
         signUp.setOnClickListener(this);
-        login.setOnClickListener(this);
+        signIn.setOnClickListener(this);
 
         setFonts();
 
@@ -45,8 +45,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.sign_up_home:
                 signUpFrag();
                 break;
-            case R.id.login_home:
-                loginFragment();
+            case R.id.sign_in:
+                singInActivity();
                 break;
         }
     }
@@ -63,12 +63,11 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     /**
-     * Launches the portfolio frag
+     * A method to call the sign in Activity.
      */
-    public void loginFragment() {
-        FragmentManager manager = getSupportFragmentManager();
-        LoginFragment fragment = new LoginFragment();
-        fragment.show(manager, "Fragment Login");
+    public void singInActivity() {
+        Intent intent = new Intent(this, SignInActivity.class);
+        startActivity(intent);
     }
 
     /**
@@ -79,7 +78,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         Typeface face = Typeface.createFromAsset(getAssets(), "bondini.ttf");
         welcome.setTypeface(face);
         signUp.setTypeface(face);
-        login.setTypeface(face);
+        signIn.setTypeface(face);
     }
 
 
