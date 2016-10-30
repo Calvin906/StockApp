@@ -27,7 +27,7 @@ public class SignUpFragment extends DialogFragment implements View.OnClickListen
 
         View view = inflater.inflate(R.layout.sign_up_view, container);
         cancel = (TextView) view.findViewById(R.id.cancel_button_sign_up);
-        signUp = (TextView) view.findViewById(R.id.sign_up_button_sing_up);
+        signUp = (TextView) view.findViewById(R.id.sign_up_button_sign_up);
 
         cancel.setOnClickListener(this);
         signUp.setOnClickListener(this);
@@ -46,7 +46,7 @@ public class SignUpFragment extends DialogFragment implements View.OnClickListen
             case R.id.cancel_button_sign_up:
                 dismiss();
                 break;
-            case R.id.sign_up_button_sing_up:
+            case R.id.sign_up_button_sign_up:
                 startPortfolioPage();
                 break;
         }

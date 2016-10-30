@@ -20,22 +20,27 @@
         <activity
             android:name=".PortfolioActivity"
             android:label="My Portfolio"
+            android:theme="@style/AppTheme"
             />
         <activity
             android:name=".SearchActivity"
             android:label="Search"
+            android:theme="@style/AppTheme"
             />
         <activity
             android:name=".IndividualStockActivity"
             android:label="Company Name"
+            android:theme="@style/AppTheme"
             />
         <activity
             android:name=".ProfitLossActivity"
             android:label="Profit/Loss"
+            android:theme="@style/AppTheme"
             />
         <activity
             android:name=".SignInActivity"
             android:label="Sign In"
+            android:theme="@style/AppTheme"
             />
     </application>
 
