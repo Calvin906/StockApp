@@ -1,7 +1,6 @@
 package preston.com.stockapp;
 
 import android.app.Activity;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,8 +15,6 @@ public class PortfolioActivity extends Activity {
 
     private RecyclerView pRecyclerView;
     private PortfolioRecyclerViewAdapter pAdapter;
-    private SQLiteDatabase database;
-    private FeederReaderContract.FeederReaderDBHelper mDbHelper;
 
 
     @Override

@@ -88,8 +88,22 @@ public class DaoMaster extends AbstractDaoMaster {
         @Override
         public void onUpgrade(Database db, int oldVersion, int newVersion) {
             Log.i("greenDAO", "Upgrading schema from version " + oldVersion + " to " + newVersion + " by dropping all tables");
-            dropAllTables(db, true);
-            onCreate(db);
+            if(oldVersion == 3 && newVersion == 4)
+            {
+                boolean ifNotExists = false;
+
+                //Leave old tables alone and only create ones that didn't exist
+                //in the previous schema
+                NewTable1Dao.createTable(db, ifNotExists);
+                NewTable2Dao.createTable(db, ifNotExists);
+                NewTable3Dao.createTable(db, ifNotExists);
+                NewTable4Dao.createTable(db, ifNotExists);
+            }
+            else
+            {
+                dropAllTables(db, true);
+                onCreate(db);
+            }
         }
     }
 

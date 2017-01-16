@@ -1,7 +1,6 @@
 package main.java.com.preston;
 
 import org.greenrobot.greendao.generator.DaoGenerator;
-import org.greenrobot.greendao.generator.Entity;
 import org.greenrobot.greendao.generator.Schema;
 
 import main.java.com.preston.StockEntities.StockEntity;

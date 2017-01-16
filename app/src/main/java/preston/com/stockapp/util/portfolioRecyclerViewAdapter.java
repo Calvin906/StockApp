@@ -22,9 +22,9 @@ public class PortfolioRecyclerViewAdapter extends RecyclerView.Adapter<Portfolio
     /**
      * Add stocks to the view
      */
-    public void addStocks() {
-
-    }
+//    public void addStocks(List<> stocks) {
+//
+//    }
 
     @Override
     public StockViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

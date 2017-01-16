@@ -8,8 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
-import preston.com.stockapp.util.SignUpFragment;
-
 /**
  * Created by Alex Preston on 9/5/16.
  */
