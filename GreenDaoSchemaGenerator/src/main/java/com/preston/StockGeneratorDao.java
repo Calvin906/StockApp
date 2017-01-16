@@ -31,6 +31,7 @@ public class StockGeneratorDao {
     }
 
     public static Schema attachCoreEntities(Schema schema) {
+        new UserEntity("User").attachTo(schema);
         return schema;
     }
 

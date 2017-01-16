@@ -90,4 +90,17 @@
         android:maxLength="20"
         android:maxLines="1"
         android:textColorHint="@color/hintTextColor"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin_x4"
+        android:layout_marginRight="@dimen/activity_horizontal_margin_x4"
+        android:layout_height="wrap_content"
+        android:id="@+id/add_stock_individual"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="36dp"
+        android:text="@string/add"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/green_rounded_button"
+        android:textColor="@color/textColor"/>
 </RelativeLayout>
