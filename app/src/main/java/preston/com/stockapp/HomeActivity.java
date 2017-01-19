@@ -12,8 +12,8 @@ import android.widget.TextView;
  */
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private TextView welcome;
-    private TextView signIn;
+    private TextView welcome, signIn, signUp;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,9 +21,11 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.home_activity);
 
         welcome = (TextView) findViewById(R.id.welcome_home);
-        signIn = (TextView) findViewById(R.id.sign_in);
+        signIn = (TextView) findViewById(R.id.sign_in_home);
+        signUp = (TextView) findViewById(R.id.sign_up_home);
 
         signIn.setOnClickListener(this);
+        signUp.setOnClickListener(this);
 
         setFonts();
 
@@ -31,15 +33,24 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     /**
      * onClick method dictates which button was clicked
+     *
      * @param v
      */
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.sign_in:
+            case R.id.sign_up_home:
+                signUpActivity();
+                break;
+            case R.id.sign_in_home:
                 singInActivity();
                 break;
         }
+    }
+
+    public void signUpActivity() {
+        Intent intent = new Intent(this, SignUpActivity.class);
+        startActivity(intent);
     }
 
 
@@ -59,6 +70,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         Typeface face = Typeface.createFromAsset(getAssets(), "bondini.ttf");
         welcome.setTypeface(face);
         signIn.setTypeface(face);
+        signUp.setTypeface(face);
     }
 
 

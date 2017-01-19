@@ -42,6 +42,11 @@
             android:label="Sign In"
             android:theme="@style/AppTheme"
             />
+        <activity
+            android:name=".SignUpActivity"
+            android:label="Sign In"
+            android:theme="@style/AppTheme"
+            />
     </application>
 
 

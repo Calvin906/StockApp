@@ -13,7 +13,7 @@ import org.greenrobot.greendao.database.DatabaseStatement;
 /** 
  * DAO for table "USER".
 */
-public class UserDao extends AbstractDao<User, Void> {
+public class UserDao extends AbstractDao<User, String> {
 
     public static final String TABLENAME = "USER";
 
@@ -22,8 +22,9 @@ public class UserDao extends AbstractDao<User, Void> {
      * Can be used for QueryBuilder and for referencing column names.
      */
     public static class Properties {
-        public final static Property EncodedId = new Property(0, String.class, "encodedId", false, "ENCODED_ID");
-        public final static Property Name = new Property(1, String.class, "name", false, "NAME");
+        public final static Property EncodedId = new Property(0, String.class, "encodedId", true, "ENCODED_ID");
+        public final static Property Email = new Property(1, String.class, "email", false, "EMAIL");
+        public final static Property Password = new Property(2, String.class, "password", false, "PASSWORD");
     }
 
 
@@ -39,8 +40,12 @@ public class UserDao extends AbstractDao<User, Void> {
     public static void createTable(Database db, boolean ifNotExists) {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"USER\" (" + //
-                "\"ENCODED_ID\" TEXT," + // 0: encodedId
-                "\"NAME\" TEXT);"); // 1: name
+                "\"ENCODED_ID\" TEXT PRIMARY KEY NOT NULL UNIQUE ," + // 0: encodedId
+                "\"EMAIL\" TEXT," + // 1: email
+                "\"PASSWORD\" TEXT);"); // 2: password
+        // Add Indexes
+        db.execSQL("CREATE INDEX " + constraint + "IDX_USER_ENCODED_ID ON USER" +
+                " (\"ENCODED_ID\");");
     }
 
     /** Drops the underlying database table. */
@@ -52,68 +57,74 @@ public class UserDao extends AbstractDao<User, Void> {
     @Override
     protected final void bindValues(DatabaseStatement stmt, User entity) {
         stmt.clearBindings();
+        stmt.bindString(1, entity.getEncodedId());
  
-        String encodedId = entity.getEncodedId();
-        if (encodedId != null) {
-            stmt.bindString(1, encodedId);
+        String email = entity.getEmail();
+        if (email != null) {
+            stmt.bindString(2, email);
         }
  
-        String name = entity.getName();
-        if (name != null) {
-            stmt.bindString(2, name);
+        String password = entity.getPassword();
+        if (password != null) {
+            stmt.bindString(3, password);
         }
     }
 
     @Override
     protected final void bindValues(SQLiteStatement stmt, User entity) {
         stmt.clearBindings();
+        stmt.bindString(1, entity.getEncodedId());
  
-        String encodedId = entity.getEncodedId();
-        if (encodedId != null) {
-            stmt.bindString(1, encodedId);
+        String email = entity.getEmail();
+        if (email != null) {
+            stmt.bindString(2, email);
         }
  
-        String name = entity.getName();
-        if (name != null) {
-            stmt.bindString(2, name);
+        String password = entity.getPassword();
+        if (password != null) {
+            stmt.bindString(3, password);
         }
     }
 
     @Override
-    public Void readKey(Cursor cursor, int offset) {
-        return null;
+    public String readKey(Cursor cursor, int offset) {
+        return cursor.getString(offset + 0);
     }    
 
     @Override
     public User readEntity(Cursor cursor, int offset) {
         User entity = new User( //
-            cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0), // encodedId
-            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1) // name
+            cursor.getString(offset + 0), // encodedId
+            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // email
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2) // password
         );
         return entity;
     }
      
     @Override
     public void readEntity(Cursor cursor, User entity, int offset) {
-        entity.setEncodedId(cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0));
-        entity.setName(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
+        entity.setEncodedId(cursor.getString(offset + 0));
+        entity.setEmail(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
+        entity.setPassword(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
      }
     
     @Override
-    protected final Void updateKeyAfterInsert(User entity, long rowId) {
-        // Unsupported or missing PK type
-        return null;
+    protected final String updateKeyAfterInsert(User entity, long rowId) {
+        return entity.getEncodedId();
     }
     
     @Override
-    public Void getKey(User entity) {
-        return null;
+    public String getKey(User entity) {
+        if(entity != null) {
+            return entity.getEncodedId();
+        } else {
+            return null;
+        }
     }
 
     @Override
     public boolean hasKey(User entity) {
-        // TODO
-        return false;
+        throw new UnsupportedOperationException("Unsupported for entities with a non-null key");
     }
 
     @Override

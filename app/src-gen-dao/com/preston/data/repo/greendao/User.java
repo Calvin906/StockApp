@@ -8,33 +8,54 @@ import org.greenrobot.greendao.annotation.*;
  */
 @Entity
 public class User {
+
+    @Id
+    @NotNull
+    @Unique
+    @Index
     private String encodedId;
-    private String name;
+    private String email;
+    private String password;
 
     @Generated
     public User() {
     }
 
-    @Generated
-    public User(String encodedId, String name) {
+    public User(String encodedId) {
         this.encodedId = encodedId;
-        this.name = name;
     }
 
+    @Generated
+    public User(String encodedId, String email, String password) {
+        this.encodedId = encodedId;
+        this.email = email;
+        this.password = password;
+    }
+
+    @NotNull
     public String getEncodedId() {
         return encodedId;
     }
 
-    public void setEncodedId(String encodedId) {
+    /** Not-null value; ensure this value is available before it is saved to the database. */
+    public void setEncodedId(@NotNull String encodedId) {
         this.encodedId = encodedId;
     }
 
-    public String getName() {
-        return name;
+    public String getEmail() {
+        return email;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
 }

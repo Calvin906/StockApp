@@ -1,13 +1,15 @@
 <resources>
 
-    <!-- Home Activity -->
+    <!-- Generic -->
     <string name="home_banner">Stocks</string>
     <string name="welcome_home">Welcome</string>
     <string name="sign_in">Sign In</string>
     <string name="sign_up">Sign Up</string>
     <string name="email">Email</string>
+    <string name="confirm_email">Confirm Email</string>
     <string name="password">Password</string>
-    <string name="password_confirm">Confirm Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="create">Create</string>
 
     <!-- Generic texts -->
     <string name="cancel">Cancel</string>
@@ -32,4 +34,6 @@
     <string name="investment_total_default_num">$0.00</string>
     <string name="total_pl_text">Total Profit/Loss:</string>
     <string name="total_pl_default_num">$0.00</string>
+
+
 </resources>

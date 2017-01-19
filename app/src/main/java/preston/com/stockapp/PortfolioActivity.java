@@ -1,6 +1,7 @@
 package preston.com.stockapp;
 
 import android.app.Activity;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -33,5 +34,11 @@ public class PortfolioActivity extends Activity {
         pRecyclerView.setLayoutManager(llm);
     }
 
+    /**
+     * Sets the fonts
+     */
+    public void setFonts() {
 
+        Typeface face = Typeface.createFromAsset(getAssets(), "bondini.ttf");
+    }
 }
