@@ -24,7 +24,8 @@ public class UserDao extends AbstractDao<User, String> {
     public static class Properties {
         public final static Property EncodedId = new Property(0, String.class, "encodedId", true, "ENCODED_ID");
         public final static Property Email = new Property(1, String.class, "email", false, "EMAIL");
-        public final static Property Password = new Property(2, String.class, "password", false, "PASSWORD");
+        public final static Property Username = new Property(2, String.class, "username", false, "USERNAME");
+        public final static Property Password = new Property(3, String.class, "password", false, "PASSWORD");
     }
 
 
@@ -42,7 +43,8 @@ public class UserDao extends AbstractDao<User, String> {
         db.execSQL("CREATE TABLE " + constraint + "\"USER\" (" + //
                 "\"ENCODED_ID\" TEXT PRIMARY KEY NOT NULL UNIQUE ," + // 0: encodedId
                 "\"EMAIL\" TEXT," + // 1: email
-                "\"PASSWORD\" TEXT);"); // 2: password
+                "\"USERNAME\" TEXT," + // 2: username
+                "\"PASSWORD\" TEXT);"); // 3: password
         // Add Indexes
         db.execSQL("CREATE INDEX " + constraint + "IDX_USER_ENCODED_ID ON USER" +
                 " (\"ENCODED_ID\");");
@@ -64,9 +66,14 @@ public class UserDao extends AbstractDao<User, String> {
             stmt.bindString(2, email);
         }
  
+        String username = entity.getUsername();
+        if (username != null) {
+            stmt.bindString(3, username);
+        }
+ 
         String password = entity.getPassword();
         if (password != null) {
-            stmt.bindString(3, password);
+            stmt.bindString(4, password);
         }
     }
 
@@ -80,9 +87,14 @@ public class UserDao extends AbstractDao<User, String> {
             stmt.bindString(2, email);
         }
  
+        String username = entity.getUsername();
+        if (username != null) {
+            stmt.bindString(3, username);
+        }
+ 
         String password = entity.getPassword();
         if (password != null) {
-            stmt.bindString(3, password);
+            stmt.bindString(4, password);
         }
     }
 
@@ -96,7 +108,8 @@ public class UserDao extends AbstractDao<User, String> {
         User entity = new User( //
             cursor.getString(offset + 0), // encodedId
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // email
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2) // password
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // username
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3) // password
         );
         return entity;
     }
@@ -105,7 +118,8 @@ public class UserDao extends AbstractDao<User, String> {
     public void readEntity(Cursor cursor, User entity, int offset) {
         entity.setEncodedId(cursor.getString(offset + 0));
         entity.setEmail(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
-        entity.setPassword(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
+        entity.setUsername(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
+        entity.setPassword(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
      }
     
     @Override

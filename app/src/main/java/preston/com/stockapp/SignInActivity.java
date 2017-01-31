@@ -1,38 +1,34 @@
 package preston.com.stockapp;
 
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.google.android.gms.auth.api.signin.GoogleSignInResult;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.preston.data.repo.greendao.DaoMaster;
-import com.preston.data.repo.greendao.DaoSession;
+import com.preston.data.repo.greendao.User;
+import com.preston.data.repo.greendao.UserDao;
+
+import java.util.List;
+
+import preston.com.stockapp.util.UserDatabase;
 
 /**
  * Created by Alex Preston on 10/27/16.
  */
 
-public class SignInActivity extends AppCompatActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
+public class SignInActivity extends AppCompatActivity {
 
-//    private com.google.android.gms.common.SignInButton signIn;
-//    private GoogleSignInOptions gso;
-//    private GoogleApiClient mGoogleApiClient;
-    private static final int RC_SIGN_IN = 9001;
     private static final String TAG = String.format("tag.%s", SignInActivity.class.getName());
-    private EditText email, password;
+    private EditText userName, password;
     private Button login;
-    private DaoSession daoSession;
+    private UserDao userDao;
+    private User user;
     private TextView greeting;
+    private UserDatabase userDatabase;
 
 
     @Override
@@ -40,107 +36,81 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_in_activity);
 
-//        signIn = (com.google.android.gms.common.SignInButton) findViewById(R.id.sign_in_button_si);
-//
-//
-//        signIn.setOnClickListener(this);
+        userDatabase = UserDatabase.getInstance(this);
 
-//        // Configure sign-in to request the user's ID, email address, and basic
-//        // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
-//        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
-//
-//        // Build a GoogleApiClient with access to the Google Sign-In API and the
-//        // options specified by gso.
-////        mGoogleApiClient = new GoogleApiClient.Builder(this)
-////                .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
-////                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-////                .build();
+        userDao = userDatabase.getUserDao();
 
-        email = (EditText) findViewById(R.id.email_sign_in);
+
+        userName = (EditText) findViewById(R.id.username_sign_in);
         password = (EditText) findViewById(R.id.password_sign_in);
         greeting = (TextView) findViewById(R.id.login_text_sign_in);
         login = (Button) findViewById(R.id.sign_in_button_sign_in);
+        attachClickListener(login);
 
-        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, "user-db", null);
-        SQLiteDatabase db = helper.getWritableDatabase();
-        DaoMaster daoMaster = new DaoMaster(db);
-        daoSession = daoMaster.newSession();
-
-        setFonts();;
+        setFonts();
 
     }
 
     /**
-     * Method implemented by onClickListener. Handles actions of clicks
+     * Sets the click listener
      *
-     * @param v
+     * @param button
      */
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.sign_in_button_sign_in:
-                signIn();
-                break;
-        }
+    private void attachClickListener(Button button) {
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (checkValidAcc(userName.getText().toString(), password.getText().toString())) {
+                    signInSuccessful(user);
+                } else {
+                    signInFailure();
+                }
+            }
+        });
+
     }
 
-
-
-//    /**
-//     * On the activity result, if the request code is the RC code, then it will create a google signIn result
-//     * and check with teh handleSignInResult Method to see if it was successful
-//     *
-//     * @param requestCode
-//     * @param resultCode
-//     * @param data
-//     */
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if (requestCode == RC_SIGN_IN) {
-//            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-//            handleSignInResults(result);
-//        }
-//    }
+    /**
+     * Sign in was a failure clear fields
+     */
+    private void signInFailure() {
+        userName.setText("Wrong Username/Password");
+        password.setText("Wrong Password");
+    }
 
     /**
-     * This method checks to see if the sign in result is successful
+     * Checks to see if the account is in the system
      *
-     * @param result
+     * @param username
+     * @param password
+     * @return
      */
-    private void handleSignInResults(GoogleSignInResult result) {
-        Log.d(TAG, "handleSignInResult: " + result.isSuccess());
-        if (result.isSuccess()) {
-            //Sign in is successful, show UI TODO
-            // GoogleSignInAccount acct = result.getSignInAccount();
-//            User user = new User();
-//            user.setEmail(email.getText().toString());
-//            user.setPassword(password.getText().toString());
-//            UserDao userDao = daoSession.getUserDao();
-//            userDao.insertOrReplace(user);
-            Intent intent = new Intent(this, PortfolioActivity.class);
-            startActivity(intent);
+    private boolean checkValidAcc(String username, String password) {
+        List<User> userList = userDao.queryBuilder().orderDesc(UserDao.Properties.EncodedId).build().list();
 
-
-        } else {
-            Intent intent = new Intent(this, HomeActivity.class);
-            startActivity(intent);
+        if (userList.size() > 0) {
+            for (int i = 0; i < userList.size(); i++) {
+                if (userList.get(i).getEncodedId().contentEquals(username) && userList.get(i).getPassword().contentEquals(password)) {
+                    user = userList.get(i);
+                    return true;
+                }
+            }
         }
-
+        return false;
     }
+
 
     /**
-     * Launch the sign In method
+     * Sign in is successful
+     *
+     * @param userToPass
      */
-    private void signIn() {
-//        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-//        startActivityForResult(signInIntent, RC_SIGN_IN);
+    private void signInSuccessful(User userToPass) {
+        Intent intent = new Intent(this, PortfolioActivity.class);
+        intent.putExtra("User", userToPass);
+        startActivity(intent);
     }
 
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
-    }
 
     /**
      * Sets the fonts
@@ -148,7 +118,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     public void setFonts() {
 
         Typeface face = Typeface.createFromAsset(getAssets(), "bondini.ttf");
-        email.setTypeface(face);
+        userName.setTypeface(face);
         password.setTypeface(face);
         greeting.setTypeface(face);
         login.setTypeface(face);

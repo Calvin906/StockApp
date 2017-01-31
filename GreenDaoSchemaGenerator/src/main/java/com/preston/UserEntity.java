@@ -21,7 +21,9 @@ public class UserEntity extends BaseEntity{
     @Override
     protected void setupEntity(Entity entity) {
         entity.addStringProperty("email");
+        entity.addStringProperty("username");
         entity.addStringProperty("password");
+        entity.getInterfacesToImplement().add("java.io.Serializable");
 
     }
 

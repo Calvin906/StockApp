@@ -7,7 +7,7 @@ import org.greenrobot.greendao.annotation.*;
  * Entity mapped to table "USER".
  */
 @Entity
-public class User {
+public class User implements java.io.Serializable {
 
     @Id
     @NotNull
@@ -15,6 +15,7 @@ public class User {
     @Index
     private String encodedId;
     private String email;
+    private String username;
     private String password;
 
     @Generated
@@ -26,9 +27,10 @@ public class User {
     }
 
     @Generated
-    public User(String encodedId, String email, String password) {
+    public User(String encodedId, String email, String username, String password) {
         this.encodedId = encodedId;
         this.email = email;
+        this.username = username;
         this.password = password;
     }
 
@@ -48,6 +50,14 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
