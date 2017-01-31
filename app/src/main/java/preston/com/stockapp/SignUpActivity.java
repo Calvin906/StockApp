@@ -31,7 +31,7 @@ public class SignUpActivity extends AppCompatActivity  {
         setContentView(R.layout.sign_up_activity);
 
         userDatabase = UserDatabase.getInstance(this);;
-        userDatabase.setUpDB();
+        userDatabase.checkDataBase();
 
 
         //EditText

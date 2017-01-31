@@ -37,15 +37,16 @@ public class SignInActivity extends AppCompatActivity {
         setContentView(R.layout.sign_in_activity);
 
         userDatabase = UserDatabase.getInstance(this);
+        userDatabase.checkDataBase();
 
         userDao = userDatabase.getUserDao();
 
-
         userName = (EditText) findViewById(R.id.username_sign_in);
         password = (EditText) findViewById(R.id.password_sign_in);
+
         greeting = (TextView) findViewById(R.id.login_text_sign_in);
         login = (Button) findViewById(R.id.sign_in_button_sign_in);
-        attachClickListener(login);
+        attachButtonClickListener(login);
 
         setFonts();
 
@@ -56,7 +57,7 @@ public class SignInActivity extends AppCompatActivity {
      *
      * @param button
      */
-    private void attachClickListener(Button button) {
+    private void attachButtonClickListener(Button button) {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,12 +71,13 @@ public class SignInActivity extends AppCompatActivity {
 
     }
 
+
     /**
      * Sign in was a failure clear fields
      */
     private void signInFailure() {
-        userName.setText("Wrong Username/Password");
-        password.setText("Wrong Password");
+        userName.setText("Wrong Username");
+        password.setText("");
     }
 
     /**

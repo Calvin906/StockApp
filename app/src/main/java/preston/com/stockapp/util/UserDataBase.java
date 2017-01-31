@@ -2,6 +2,7 @@ package preston.com.stockapp.util;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 
 import com.preston.data.repo.greendao.DaoMaster;
 import com.preston.data.repo.greendao.DaoSession;
@@ -55,16 +56,33 @@ public class UserDatabase {
     }
 
     /**
+     * Check if the database exist and can be read.
+     *
+     * @return true if it exists and can be read, false if it doesn't
+     */
+    public boolean checkDataBase() {
+        SQLiteDatabase checkDB = null;
+        try {
+            checkDB = SQLiteDatabase.openDatabase("../app/src-gen-dao", null,
+                    SQLiteDatabase.OPEN_READONLY);
+            checkDB.close();
+        } catch (SQLiteException e) {
+            // database doesn't exist yet.
+            DaoMaster.DevOpenHelper masterHelper = new DaoMaster.DevOpenHelper(context, "USER", null); //Create DB file
+            SQLiteDatabase db = masterHelper.getWritableDatabase();
+            DaoMaster master = new DaoMaster(db);
+            DaoSession masterSession = master.newSession();
+            userDao = masterSession.getUserDao();
+        }
+        return checkDB != null;
+    }
+
+    /**
      * Configures a returnable db
      *
      * @return UserDao
      */
     public void setUpDB() {
-        DaoMaster.DevOpenHelper masterHelper = new DaoMaster.DevOpenHelper(context, "USER", null); //Create DB file
-        SQLiteDatabase db = masterHelper.getWritableDatabase();
-        DaoMaster master = new DaoMaster(db);
-        DaoSession masterSession = master.newSession();
 
-        userDao = masterSession.getUserDao();
     }
 }
