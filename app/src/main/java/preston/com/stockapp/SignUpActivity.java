@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.preston.data.repo.greendao.User;
 
-import preston.com.stockapp.util.UserDatabase;
+import preston.com.stockapp.util.Database;
 
 /**
  * Created by Alex Preston on 1/18/17.
@@ -23,14 +23,14 @@ public class SignUpActivity extends AppCompatActivity  {
     private Button create;
     private TextView greeting;
     private User user;
-    private UserDatabase userDatabase;
+    private Database userDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_up_activity);
 
-        userDatabase = UserDatabase.getInstance(this);;
+        userDatabase = Database.getInstance(this);;
         userDatabase.checkDataBase();
 
 

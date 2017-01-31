@@ -7,16 +7,18 @@ import android.database.sqlite.SQLiteException;
 import com.preston.data.repo.greendao.DaoMaster;
 import com.preston.data.repo.greendao.DaoSession;
 import com.preston.data.repo.greendao.UserDao;
+import com.preston.data.repo.greendao.stock.StockDao;
 
 /**
  * Singleton for the database
  * Created by Alex Preston on 1/26/17.
  */
 
-public class UserDatabase {
+public class Database {
     private static Context context;
-    private static UserDatabase instance = null;
+    private static Database instance = null;
     private UserDao userDao;
+    private StockDao stockDao;
 
 
     /**
@@ -29,16 +31,24 @@ public class UserDatabase {
     }
 
     /**
+     * Returns StockDao
+     * @return
+     */
+    public StockDao getStockDao() {
+        return stockDao;
+    }
+
+    /**
      * Gets instance of the userDatabase
      *
      * @param context
      * @return
      */
-    public static UserDatabase getInstance(Context context) {
+    public static Database getInstance(Context context) {
         if (instance == null) {
-            synchronized (UserDatabase.class) {
+            synchronized (Database.class) {
                 if (instance == null) {
-                    instance = new UserDatabase(context.getApplicationContext());
+                    instance = new Database(context.getApplicationContext());
                 }
             }
 
@@ -51,7 +61,7 @@ public class UserDatabase {
      *
      * @param context
      */
-    public UserDatabase(Context context) {
+    public Database(Context context) {
         this.context = context;
     }
 
@@ -68,11 +78,7 @@ public class UserDatabase {
             checkDB.close();
         } catch (SQLiteException e) {
             // database doesn't exist yet.
-            DaoMaster.DevOpenHelper masterHelper = new DaoMaster.DevOpenHelper(context, "USER", null); //Create DB file
-            SQLiteDatabase db = masterHelper.getWritableDatabase();
-            DaoMaster master = new DaoMaster(db);
-            DaoSession masterSession = master.newSession();
-            userDao = masterSession.getUserDao();
+            setUpDB();
         }
         return checkDB != null;
     }
@@ -82,7 +88,17 @@ public class UserDatabase {
      *
      * @return UserDao
      */
-    public void setUpDB() {
+    private void setUpDB() {
+        DaoMaster.DevOpenHelper userMasterHelper = new DaoMaster.DevOpenHelper(context, "USER", null); //Create DB file
+        SQLiteDatabase userDB = userMasterHelper.getWritableDatabase();
+        DaoMaster userMaster = new DaoMaster(userDB);
+        DaoSession masterUserSession = userMaster.newSession();
+        userDao = masterUserSession.getUserDao();
 
+        com.preston.data.repo.greendao.stock.DaoMaster.DevOpenHelper stockMasterHelper = new com.preston.data.repo.greendao.stock.DaoMaster.DevOpenHelper(context, "STOCK", null); //Create Stock DB file
+        SQLiteDatabase stockDB = stockMasterHelper.getWritableDatabase();
+        com.preston.data.repo.greendao.stock.DaoMaster stockMaster = new com.preston.data.repo.greendao.stock.DaoMaster(stockDB);
+        com.preston.data.repo.greendao.stock.DaoSession masterStockSession = stockMaster.newSession();
+        stockDao = masterStockSession.getStockDao();
     }
 }

@@ -14,7 +14,7 @@ import com.preston.data.repo.greendao.UserDao;
 
 import java.util.List;
 
-import preston.com.stockapp.util.UserDatabase;
+import preston.com.stockapp.util.Database;
 
 /**
  * Created by Alex Preston on 10/27/16.
@@ -28,7 +28,7 @@ public class SignInActivity extends AppCompatActivity {
     private UserDao userDao;
     private User user;
     private TextView greeting;
-    private UserDatabase userDatabase;
+    private Database userDatabase;
 
 
     @Override
@@ -36,7 +36,7 @@ public class SignInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_in_activity);
 
-        userDatabase = UserDatabase.getInstance(this);
+        userDatabase = Database.getInstance(this);
         userDatabase.checkDataBase();
 
         userDao = userDatabase.getUserDao();
