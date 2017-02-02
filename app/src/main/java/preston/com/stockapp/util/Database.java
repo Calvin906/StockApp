@@ -6,8 +6,8 @@ import android.database.sqlite.SQLiteException;
 
 import com.preston.data.repo.greendao.DaoMaster;
 import com.preston.data.repo.greendao.DaoSession;
+import com.preston.data.repo.greendao.StockDao;
 import com.preston.data.repo.greendao.UserDao;
-import com.preston.data.repo.greendao.stock.StockDao;
 
 /**
  * Singleton for the database
@@ -95,10 +95,10 @@ public class Database {
         DaoSession masterUserSession = userMaster.newSession();
         userDao = masterUserSession.getUserDao();
 
-        com.preston.data.repo.greendao.stock.DaoMaster.DevOpenHelper stockMasterHelper = new com.preston.data.repo.greendao.stock.DaoMaster.DevOpenHelper(context, "STOCK", null); //Create Stock DB file
+        DaoMaster.DevOpenHelper stockMasterHelper = new DaoMaster.DevOpenHelper(context, "STOCK", null);
         SQLiteDatabase stockDB = stockMasterHelper.getWritableDatabase();
-        com.preston.data.repo.greendao.stock.DaoMaster stockMaster = new com.preston.data.repo.greendao.stock.DaoMaster(stockDB);
-        com.preston.data.repo.greendao.stock.DaoSession masterStockSession = stockMaster.newSession();
+        DaoMaster stockMaster = new DaoMaster(stockDB);
+        DaoSession masterStockSession = stockMaster.newSession();
         stockDao = masterStockSession.getStockDao();
     }
 }

@@ -28,6 +28,8 @@ public class UserDao extends AbstractDao<User, String> {
         public final static Property Password = new Property(3, String.class, "password", false, "PASSWORD");
     }
 
+    private DaoSession daoSession;
+
 
     public UserDao(DaoConfig config) {
         super(config);
@@ -35,6 +37,7 @@ public class UserDao extends AbstractDao<User, String> {
     
     public UserDao(DaoConfig config, DaoSession daoSession) {
         super(config, daoSession);
+        this.daoSession = daoSession;
     }
 
     /** Creates the underlying database table. */
@@ -96,6 +99,12 @@ public class UserDao extends AbstractDao<User, String> {
         if (password != null) {
             stmt.bindString(4, password);
         }
+    }
+
+    @Override
+    protected final void attachEntity(User entity) {
+        super.attachEntity(entity);
+        entity.__setDaoSession(daoSession);
     }
 
     @Override

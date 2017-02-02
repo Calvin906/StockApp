@@ -25,6 +25,7 @@ public class UserEntity extends BaseEntity{
         entity.addStringProperty("password");
         entity.getInterfacesToImplement().add("java.io.Serializable");
 
+
     }
 
     @Override

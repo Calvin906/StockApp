@@ -5,7 +5,7 @@
                 android:orientation="vertical">
 
     <SearchView
-        android:id="@+id/search_bar_activity"
+        android:id="@+id/search_bar_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/search_bar_spacing"
@@ -18,14 +18,14 @@
         android:id="@+id/recent_view_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/search_bar_activity"
+        android:layout_below="@id/search_bar_search"
         android:layout_marginLeft="@dimen/spacing_sides_x1.5"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:text="@string/recently_searched"
         android:textAllCaps="false"/>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/search_recycler_view"
+        android:id="@+id/recycler_view_search"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/recent_view_text"
