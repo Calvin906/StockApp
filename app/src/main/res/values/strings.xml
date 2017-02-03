@@ -18,7 +18,7 @@
     <string name="refresh">Refresh</string>
 
     <!-- Search Page -->
-    <string name="recently_searched">Recently Searched</string>
+    <string name="recently_searched">Recently Viewed</string>
 
 
     <!-- Individual stock page -->
@@ -29,6 +29,8 @@
     <string name="price_purchased_default">Price Purchased At</string>
     <string name="stock_price_default">$0.00</string>
     <string name="stock_percent_default">+1.0</string>
+    <string name="stock_ticker_default">Googl</string>
+    <string name="stock_name_default">Google</string>
 
     <!-- Profit Loss page -->
     <string name="investment_total_text">Investment Total:</string>

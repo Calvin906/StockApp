@@ -18,9 +18,11 @@
 
 
     <!-- Text Related dimens -->
-    <dimen name="welcome_text_size">72dp</dimen>
+    <dimen name="small_text_size">12dp</dimen>
     <dimen name="medium_text_size">18dp</dimen>
     <dimen name="large_text_size">24dp</dimen>
+    <dimen name="welcome_text_size">72dp</dimen>
+
 
 
     <!-- Button Related dimens -->

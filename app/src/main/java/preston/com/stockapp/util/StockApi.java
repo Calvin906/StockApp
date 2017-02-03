@@ -12,7 +12,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 /**
- * Created by jpreston on 9/4/16.
+ *
  */
 public class StockApi {
 
