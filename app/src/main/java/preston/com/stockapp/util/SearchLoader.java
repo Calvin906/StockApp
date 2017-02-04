@@ -8,14 +8,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Alex Preston on 2/2/17.
  */
 
-public class SearchLoader extends android.support.v4.content.AsyncTaskLoader<List<Stock>> {
+public class SearchLoader extends android.support.v4.content.AsyncTaskLoader<Stock> {
     private StockApi stockApi;
     private String query;
 
@@ -26,17 +24,16 @@ public class SearchLoader extends android.support.v4.content.AsyncTaskLoader<Lis
     }
 
     @Override
-    public List<Stock> loadInBackground() {
+    public Stock loadInBackground() {
         stockApi = StockApi.getInstance();
-        List<Stock> stocks = new ArrayList<>();
         try {
-            stocks.addAll(parse(query));
+            return parse(query);
         } catch (JSONException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return stocks;
+        return null;
     }
 
     /**
@@ -45,13 +42,11 @@ public class SearchLoader extends android.support.v4.content.AsyncTaskLoader<Lis
      * @param query
      * @return
      */
-    private List parse(String query) throws JSONException, IOException {
-        List<Stock> stocks = new ArrayList<>();
+    private Stock parse(String query) throws JSONException, IOException {
         if (query != null) {
             JSONObject obj = stockApi.getStock(query);
             JSONObject queryObj = obj.getJSONObject("query");
             JSONObject results = queryObj.getJSONObject("results");
-
             JSONObject quote = results.getJSONObject("quote");
             Stock stock = new Stock();
             stock.setTicker(quote.getString("symbol"));
@@ -66,8 +61,10 @@ public class SearchLoader extends android.support.v4.content.AsyncTaskLoader<Lis
             stock.setDaysRange(quote.getString("DaysRange"));
             stock.setName(quote.getString("Name"));
             stock.setVolume(quote.getLong("Volume"));
-            stocks.add(stock);
+            return stock;
+        } else {
+            return null;
         }
-        return stocks;
+
     }
 }

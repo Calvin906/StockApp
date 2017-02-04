@@ -25,8 +25,8 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
         stocks = new ArrayList<>();
     }
 
-    public void addStocks(List<Stock> stocks) {
-        this.stocks = stocks;
+    public void addStocks(Stock stocks) {
+        this.stocks.add(stocks);
         notifyDataSetChanged();
     }
 

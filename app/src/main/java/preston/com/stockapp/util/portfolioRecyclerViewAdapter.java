@@ -13,7 +13,7 @@ import preston.com.stockapp.R;
 /**
  * Created by Alex Preston on 11/1/16.
  */
-interface stockClickListener {
+interface StockClickListener {
     //TODO
 }
 
