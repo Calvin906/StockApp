@@ -7,24 +7,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.preston.data.repo.greendao.Stock;
+
+import java.util.List;
+
 import preston.com.stockapp.R;
 
-
-/**
- * Created by Alex Preston on 11/1/16.
- */
-interface StockClickListener {
-    //TODO
-}
 
 public class PortfolioRecyclerViewAdapter extends RecyclerView.Adapter<PortfolioRecyclerViewAdapter.StockViewHolder> {
 
     /**
      * Add stocks to the view
      */
-//    public void addStocks(List<> stocks) {
-//
-//    }
+    public void addStocks(List<Stock> stocks) {
+
+    }
 
     @Override
     public StockViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

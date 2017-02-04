@@ -7,7 +7,7 @@ import org.greenrobot.greendao.annotation.*;
  * Entity mapped to table "STOCK".
  */
 @Entity
-public class Stock {
+public class Stock implements java.io.Serializable {
 
     @Id
     @NotNull

@@ -1,6 +1,7 @@
 package preston.com.stockapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
@@ -17,13 +18,14 @@ import com.preston.data.repo.greendao.Stock;
 import com.preston.data.repo.greendao.User;
 
 import preston.com.stockapp.util.SearchLoader;
+import preston.com.stockapp.util.SearchOnClickListener;
 import preston.com.stockapp.util.SearchRecyclerViewAdapter;
 
 /**
  * Created by Alex Preston on 10/4/16.
  */
 
-public class SearchActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Stock>, SearchView.OnQueryTextListener {
+public class SearchActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Stock>, SearchView.OnQueryTextListener, SearchOnClickListener {
     private User user;
     private RecyclerView resultList;
     private SearchRecyclerViewAdapter searchAdapter;
@@ -34,7 +36,7 @@ public class SearchActivity extends AppCompatActivity implements LoaderManager.L
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_results_activity);
 
-        searchAdapter = new SearchRecyclerViewAdapter();
+        searchAdapter = new SearchRecyclerViewAdapter(this);
 
         //Create Recycler view, set Layout, and Adapter
         resultList = (RecyclerView) findViewById(R.id.recycler_view_search);
@@ -111,5 +113,12 @@ public class SearchActivity extends AppCompatActivity implements LoaderManager.L
     @Override
     public void onLoaderReset(Loader<Stock> loader) {
 
+    }
+
+    @Override
+    public void onClick(Stock stockData) {
+        Intent intent = new Intent(this, IndividualStockActivity.class);
+        intent.putExtra("Stock", stockData);
+        startActivity(intent);
     }
 }

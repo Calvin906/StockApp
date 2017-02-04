@@ -1,5 +1,6 @@
 package preston.com.stockapp.util;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,16 +14,14 @@ import java.util.List;
 
 import preston.com.stockapp.R;
 
-/**
- * Created by Alex Preston on 2/3/17.
- */
-
 public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecyclerViewAdapter.StockViewHolder> {
 
     private List<Stock> stocks;
+    private SearchOnClickListener searchListener;
 
-    public SearchRecyclerViewAdapter() {
+    public SearchRecyclerViewAdapter(SearchOnClickListener searchListener) {
         stocks = new ArrayList<>();
+        this.searchListener = searchListener;
     }
 
     public void addStocks(Stock stocks) {
@@ -47,14 +46,17 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
         return stocks.size();
     }
 
-    public class StockViewHolder extends RecyclerView.ViewHolder {
+    public class StockViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView stockName;
         private TextView stockTicker;
+        private Context context;
 
         public StockViewHolder(View v) {
             super(v);
+            context = v.getContext();
             stockName = (TextView) v.findViewById(R.id.stock_name_search_views);
             stockTicker = (TextView) v.findViewById(R.id.stock_ticker_search_views);
+            v.setOnClickListener(this);
         }
 
         /**
@@ -68,5 +70,9 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
             holder.stockName.setText(stock.getName());
         }
 
+        @Override
+        public void onClick(View v) {
+            searchListener.onClick(stocks.get(getAdapterPosition()));
+        }
     }
 }

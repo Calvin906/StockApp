@@ -1,5 +1,6 @@
 package preston.com.stockapp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.preston.data.repo.greendao.User;
 import com.preston.data.repo.greendao.UserDao;
@@ -76,8 +78,14 @@ public class SignInActivity extends AppCompatActivity {
      * Sign in was a failure clear fields
      */
     private void signInFailure() {
-        userName.setText("Wrong Username");
+        userName.setText("");
         password.setText("");
+        Context context = getApplicationContext();
+        CharSequence text = "User Name Doesn't Exist!";
+        int duration = Toast.LENGTH_SHORT;
+
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
     }
 
     /**

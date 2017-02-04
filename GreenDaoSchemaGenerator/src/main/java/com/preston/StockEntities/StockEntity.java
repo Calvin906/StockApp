@@ -33,6 +33,7 @@ public class StockEntity extends BaseEntity {
         entity.addStringProperty("name");
         entity.addLongProperty("volume");
         entity.addStringProperty("stockExchange");
+        entity.getInterfacesToImplement().add("java.io.Serializable");
     }
 
     @Override
