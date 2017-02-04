@@ -1,29 +1,34 @@
 package preston.com.stockapp;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
-import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.auth.api.signin.GoogleSignInResult;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
+import com.preston.data.repo.greendao.User;
+import com.preston.data.repo.greendao.UserDao;
+
+import java.util.List;
+
+import preston.com.stockapp.util.Database;
 
 /**
  * Created by Alex Preston on 10/27/16.
  */
 
-public class SignInActivity extends AppCompatActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
+public class SignInActivity extends AppCompatActivity {
 
-    private com.google.android.gms.common.SignInButton signIn;
-    private GoogleSignInOptions gso;
-    private GoogleApiClient mGoogleApiClient;
-    private static final int RC_SIGN_IN = 9001;
     private static final String TAG = String.format("tag.%s", SignInActivity.class.getName());
+    private EditText userName, password;
+    private Button login;
+    private UserDao userDao;
+    private User user;
+    private TextView greeting;
+    private Database userDatabase;
 
 
     @Override
@@ -31,84 +36,94 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_in_activity);
 
-        signIn = (com.google.android.gms.common.SignInButton) findViewById(R.id.sign_in_button_si);
+        userDatabase = Database.getInstance(this);
+        userDatabase.checkDataBase();
 
+        userDao = userDatabase.getUserDao();
 
-        signIn.setOnClickListener(this);
+        userName = (EditText) findViewById(R.id.username_sign_in);
+        password = (EditText) findViewById(R.id.password_sign_in);
 
-        // Configure sign-in to request the user's ID, email address, and basic
-        // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
-        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+        greeting = (TextView) findViewById(R.id.login_text_sign_in);
+        login = (Button) findViewById(R.id.sign_in_button_sign_in);
+        attachButtonClickListener(login);
 
-        // Build a GoogleApiClient with access to the Google Sign-In API and the
-        // options specified by gso.
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
-                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                .build();
-
+        setFonts();
 
     }
 
     /**
-     * Method implemented by onClickListener. Handles actions of clicks
+     * Sets the click listener
      *
-     * @param v
+     * @param button
      */
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.sign_in_button_si:
-                signIn();
+    private void attachButtonClickListener(Button button) {
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (checkValidAcc(userName.getText().toString(), password.getText().toString())) {
+                    signInSuccessful(user);
+                } else {
+                    signInFailure();
+                }
+            }
+        });
 
-        }
+    }
+
+
+    /**
+     * Sign in was a failure clear fields
+     */
+    private void signInFailure() {
+        userName.setText("Wrong Username");
+        password.setText("");
     }
 
     /**
-     * On the activity result, if the request code is the RC code, then it will create a google signIn result
-     * and check with teh handleSignInResult Method to see if it was successful
-     * @param requestCode
-     * @param resultCode
-     * @param data
-     */
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == RC_SIGN_IN) {
-            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-            handleSignInResults(result);
-        }
-    }
-
-    /**
-     * This method checks to see if the sign in result is successful
+     * Checks to see if the account is in the system
      *
-     * @param result
+     * @param username
+     * @param password
+     * @return
      */
-    private void handleSignInResults(GoogleSignInResult result) {
-        Log.d(TAG, "handleSignInResult: " + result.isSuccess() );
-        if (result.isSuccess()) {
-            //Sign in is successful, show UI TODO
-           // GoogleSignInAccount acct = result.getSignInAccount();
-            Intent intent = new Intent(this, PortfolioActivity.class);
-            startActivity(intent);
-        } else {
-            //TODO
-        }
+    private boolean checkValidAcc(String username, String password) {
+        List<User> userList = userDao.queryBuilder().orderDesc(UserDao.Properties.EncodedId).build().list();
 
+        if (userList.size() > 0) {
+            for (int i = 0; i < userList.size(); i++) {
+                if (userList.get(i).getEncodedId().contentEquals(username) && userList.get(i).getPassword().contentEquals(password)) {
+                    user = userList.get(i);
+                    return true;
+                }
+            }
+        }
+        return false;
     }
+
 
     /**
-     * Launch the sign In method
+     * Sign in is successful
+     *
+     * @param userToPass
      */
-    private void signIn() {
-        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-        startActivityForResult(signInIntent, RC_SIGN_IN);
+    private void signInSuccessful(User userToPass) {
+        Intent intent = new Intent(this, PortfolioActivity.class);
+        intent.putExtra("User", userToPass);
+        startActivity(intent);
     }
 
 
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+    /**
+     * Sets the fonts
+     */
+    public void setFonts() {
+
+        Typeface face = Typeface.createFromAsset(getAssets(), "bondini.ttf");
+        userName.setTypeface(face);
+        password.setTypeface(face);
+        greeting.setTypeface(face);
+        login.setTypeface(face);
 
     }
 }

@@ -1,13 +1,18 @@
 <resources>
 
-    <!-- Home Activity -->
+    <!-- Generic -->
     <string name="home_banner">Stocks</string>
     <string name="welcome_home">Welcome</string>
     <string name="sign_in">Sign In</string>
     <string name="sign_up">Sign Up</string>
     <string name="email">Email</string>
+    <string name="confirm_email">Confirm Email</string>
     <string name="password">Password</string>
-    <string name="password_confirm">Confirm Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="create">Create</string>
+    <string name="username">Username</string>
+    <string name="enter_ticker">Enter a Ticker</string>
+    <string name="search">Search</string>
 
     <!-- Generic texts -->
     <string name="cancel">Cancel</string>
@@ -15,7 +20,7 @@
     <string name="refresh">Refresh</string>
 
     <!-- Search Page -->
-    <string name="recently_searched">Recently Searched</string>
+    <string name="recently_searched">Recently Viewed</string>
 
 
     <!-- Individual stock page -->
@@ -26,10 +31,14 @@
     <string name="price_purchased_default">Price Purchased At</string>
     <string name="stock_price_default">$0.00</string>
     <string name="stock_percent_default">+1.0</string>
+    <string name="stock_ticker_default">Googl</string>
+    <string name="stock_name_default">Google</string>
 
     <!-- Profit Loss page -->
     <string name="investment_total_text">Investment Total:</string>
     <string name="investment_total_default_num">$0.00</string>
     <string name="total_pl_text">Total Profit/Loss:</string>
     <string name="total_pl_default_num">$0.00</string>
+
+
 </resources>

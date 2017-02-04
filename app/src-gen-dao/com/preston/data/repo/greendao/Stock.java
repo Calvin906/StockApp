@@ -1,4 +1,4 @@
-package com.preston.data.repo.greendao.stock;
+package com.preston.data.repo.greendao;
 
 import org.greenrobot.greendao.annotation.*;
 
