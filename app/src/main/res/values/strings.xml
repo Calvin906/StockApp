@@ -11,6 +11,8 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="create">Create</string>
     <string name="username">Username</string>
+    <string name="enter_ticker">Enter a Ticker</string>
+    <string name="search">Search</string>
 
     <!-- Generic texts -->
     <string name="cancel">Cancel</string>
@@ -18,7 +20,7 @@
     <string name="refresh">Refresh</string>
 
     <!-- Search Page -->
-    <string name="recently_searched">Recently Viewed</string>
+    <string name="search_results">Search Results</string>
 
 
     <!-- Individual stock page -->
