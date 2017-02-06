@@ -4,56 +4,192 @@
                 android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/company_stock_ticker_individual"
+        android:id="@+id/ticker_individual"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/activity_vertical_margin_x2"
         android:text="@string/company_ticker_default"
+        android:textAllCaps="true"
         android:textColor="@color/tickerColor"
         android:textSize="@dimen/large_text_size"/>
 
     <TextView
-        android:id="@+id/company_name_individual"
+        android:id="@+id/name_individual"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/company_stock_ticker_individual"
+        android:layout_below="@id/ticker_individual"
         android:layout_centerHorizontal="true"
         android:text="@string/company_name_default"
         android:textColor="@color/black"
         android:textSize="@dimen/medium_text_size"/>
 
     <RelativeLayout
-        android:id="@+id/numbers_individual"
+        android:id="@+id/stock_attributes_individual"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/company_name_individual"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/activity_vertical_margin_x2">
+        android:layout_below="@id/name_individual">
 
         <TextView
-            android:id="@+id/stock_price_individual"
+            android:id="@+id/price_label_individual"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/stock_price_default"
-            android:textColor="@color/stockPriceColor"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin_x2"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:text="@string/stock_price_label"/>
+
+        <TextView
+            android:id="@+id/price_individual"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin_x.5"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_toRightOf="@+id/price_label_individual"
+            android:text="@string/stock_num_default"/>
+
+        <TextView
+            android:id="@+id/change_label_individual"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/price_label_individual"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin_x2"
+            android:layout_marginTop="@dimen/activity_vertical_margin_x.5"
+            android:text="@string/stock_change_label"/>
+
+        <TextView
+            android:id="@+id/change_individual"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/price_individual"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin_x.5"
+            android:layout_marginTop="@dimen/activity_vertical_margin_x.5"
+            android:layout_toRightOf="@+id/change_label_individual"
+            android:text="@string/stock_percent_default"/>
+
+        <TextView
+            android:id="@+id/day_high_label_individual"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/change_label_individual"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin_x2"
+            android:layout_marginTop="@dimen/activity_vertical_margin_x.5"
+            android:text="@string/stock_day_high_label"
             />
 
         <TextView
-            android:id="@+id/stock_percent_individual"
+            android:id="@+id/day_high_individual"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/spacing_sides_x2"
-            android:layout_toRightOf="@id/stock_price_individual"
-            android:text="@string/stock_percent_default"
-            android:textColor="@color/percentageColor"/>
+            android:layout_below="@+id/change_individual"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin_x.5"
+            android:layout_marginTop="@dimen/activity_vertical_margin_x.5"
+            android:layout_toRightOf="@id/day_high_label_individual"
+            android:text="@string/stock_num_default"/>
+
+        <TextView
+            android:id="@+id/day_low_label_individual"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/day_high_label_individual"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin_x2"
+            android:layout_marginTop="@dimen/activity_vertical_margin_x.5"
+            android:text="@string/stock_day_low_label"/>
+
+        <TextView
+            android:id="@+id/day_low_individual"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/day_high_individual"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin_x.5"
+            android:layout_marginTop="@dimen/activity_vertical_margin_x.5"
+            android:layout_toRightOf="@+id/day_low_label_individual"
+            android:text="@string/stock_num_default"/>
+
+        <TextView
+            android:id="@+id/year_high_label_individual"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/day_low_label_individual"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin_x2"
+            android:layout_marginTop="@dimen/activity_vertical_margin_x.5"
+            android:text="@string/stock_year_high_label"
+            />
+
+        <TextView
+            android:id="@+id/year_high_individual"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/day_low_individual"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin_x.5"
+            android:layout_marginTop="@dimen/activity_vertical_margin_x.5"
+            android:layout_toRightOf="@id/year_high_label_individual"
+            android:text="@string/stock_num_default"/>
+
+        <TextView
+            android:id="@+id/year_low_label_individual"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/year_high_label_individual"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin_x2"
+            android:layout_marginTop="@dimen/activity_vertical_margin_x.5"
+            android:text="@string/stock_year_low_label"
+            />
+
+        <TextView
+            android:id="@+id/year_low_individual"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/year_high_individual"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin_x.5"
+            android:layout_marginTop="@dimen/activity_vertical_margin_x.5"
+            android:layout_toRightOf="@+id/year_low_label_individual"
+            android:text="@string/stock_num_default"/>
+
+        <TextView
+            android:id="@+id/market_cap_label_individual"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/year_low_label_individual"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin_x2"
+            android:layout_marginTop="@dimen/activity_vertical_margin_x.5"
+            android:text="@string/stock_market_capitalization_label"/>
+
+        <TextView
+            android:id="@+id/market_cap_individual"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/year_low_individual"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin_x.5"
+            android:layout_marginTop="@dimen/activity_vertical_margin_x.5"
+            android:layout_toRightOf="@+id/market_cap_label_individual"
+            android:text="@string/stock_num_default"/>
+
+        <TextView
+            android:id="@+id/volume_label_individual"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/market_cap_label_individual"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin_x2"
+            android:layout_marginTop="@dimen/activity_vertical_margin_x.5"
+            android:text="@string/stock_volume_label"
+            />
+        <TextView
+            android:id="@+id/volume_individual"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin_x.5"
+            android:layout_marginTop="@dimen/activity_vertical_margin_x.5"
+            android:layout_toRightOf="@+id/volume_label_individual"
+            android:text="@string/stock_num_default"
+            android:layout_below="@id/market_cap_individual"/>
     </RelativeLayout>
+
 
     <EditText
         android:id="@+id/desired_shares_individual"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/numbers_individual"
+        android:layout_below="@+id/stock_attributes_individual"
         android:layout_marginLeft="@dimen/activity_horizontal_margin_x1.5"
         android:layout_marginRight="@dimen/activity_horizontal_margin_x1.5"
         android:layout_marginTop="@dimen/activity_vertical_margin_x1.5"
@@ -64,43 +200,16 @@
         android:textColorHint="@color/hintTextColor"
         />
 
-    <EditText
-        android:id="@+id/date_purchased_individual"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/desired_shares_individual"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin_x1.5"
-        android:layout_marginRight="@dimen/activity_horizontal_margin_x1.5"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:hint="@string/date_purchased_default"
-        android:inputType="date"
-        android:maxLength="20"
-        android:textColorHint="@color/hintTextColor"/>
-
-    <EditText
-        android:id="@+id/price_purchased_individual"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/date_purchased_individual"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin_x1.5"
-        android:layout_marginRight="@dimen/activity_horizontal_margin_x1.5"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:hint="@string/price_purchased_default"
-        android:inputType="numberDecimal"
-        android:maxLength="20"
-        android:maxLines="1"
-        android:textColorHint="@color/hintTextColor"/>
-
     <Button
+        android:id="@+id/add_button_individual"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/desired_shares_individual"
+        android:layout_centerHorizontal="true"
         android:layout_marginLeft="@dimen/activity_horizontal_margin_x4"
         android:layout_marginRight="@dimen/activity_horizontal_margin_x4"
-        android:layout_height="wrap_content"
-        android:id="@+id/add_stock_individual"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="36dp"
-        android:text="@string/add"
-        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/activity_vertical_margin_x2"
         android:background="@drawable/green_rounded_button"
+        android:text="@string/add"
         android:textColor="@color/textColor"/>
 </RelativeLayout>

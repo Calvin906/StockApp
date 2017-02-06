@@ -1,10 +1,12 @@
 <resources>
     <!-- Spacing related dimens. -->
+    <dimen name="activity_horizontal_margin_x.5">8dp</dimen>
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_horizontal_margin_x1.5">24dp</dimen>
     <dimen name="activity_horizontal_margin_x2">36dp</dimen>
     <dimen name="activity_horizontal_margin_x3">48dp</dimen>
     <dimen name="activity_horizontal_margin_x4">64dp</dimen>
+    <dimen name="activity_vertical_margin_x.5">8dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="activity_vertical_margin_x1.5">24dp</dimen>
     <dimen name="activity_vertical_margin_x2">36dp</dimen>

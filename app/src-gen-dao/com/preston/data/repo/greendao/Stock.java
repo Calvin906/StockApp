@@ -26,6 +26,7 @@ public class Stock implements java.io.Serializable {
     private String name;
     private Long volume;
     private String stockExchange;
+    private Double PricePurchased;
 
     @Generated
     public Stock() {
@@ -36,7 +37,7 @@ public class Stock implements java.io.Serializable {
     }
 
     @Generated
-    public Stock(String ticker, Long dailyVolume, Double change, Double daysLow, Double daysHigh, Double yearsLow, Double yearsHigh, String marketCapitalization, Double lastTradePrice, String daysRange, String name, Long volume, String stockExchange) {
+    public Stock(String ticker, Long dailyVolume, Double change, Double daysLow, Double daysHigh, Double yearsLow, Double yearsHigh, String marketCapitalization, Double lastTradePrice, String daysRange, String name, Long volume, String stockExchange, Double PricePurchased) {
         this.ticker = ticker;
         this.dailyVolume = dailyVolume;
         this.change = change;
@@ -50,6 +51,7 @@ public class Stock implements java.io.Serializable {
         this.name = name;
         this.volume = volume;
         this.stockExchange = stockExchange;
+        this.PricePurchased = PricePurchased;
     }
 
     @NotNull
@@ -156,6 +158,14 @@ public class Stock implements java.io.Serializable {
 
     public void setStockExchange(String stockExchange) {
         this.stockExchange = stockExchange;
+    }
+
+    public Double getPricePurchased() {
+        return PricePurchased;
+    }
+
+    public void setPricePurchased(Double PricePurchased) {
+        this.PricePurchased = PricePurchased;
     }
 
 }

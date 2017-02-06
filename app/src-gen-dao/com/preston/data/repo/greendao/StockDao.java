@@ -38,6 +38,7 @@ public class StockDao extends AbstractDao<Stock, String> {
         public final static Property Name = new Property(10, String.class, "name", false, "NAME");
         public final static Property Volume = new Property(11, Long.class, "volume", false, "VOLUME");
         public final static Property StockExchange = new Property(12, String.class, "stockExchange", false, "STOCK_EXCHANGE");
+        public final static Property PricePurchased = new Property(13, Double.class, "PricePurchased", false, "PRICE_PURCHASED");
     }
 
     private Query<Stock> user_StockListQuery;
@@ -66,7 +67,8 @@ public class StockDao extends AbstractDao<Stock, String> {
                 "\"DAYS_RANGE\" TEXT," + // 9: daysRange
                 "\"NAME\" TEXT," + // 10: name
                 "\"VOLUME\" INTEGER," + // 11: volume
-                "\"STOCK_EXCHANGE\" TEXT);"); // 12: stockExchange
+                "\"STOCK_EXCHANGE\" TEXT," + // 12: stockExchange
+                "\"PRICE_PURCHASED\" REAL);"); // 13: PricePurchased
         // Add Indexes
         db.execSQL("CREATE INDEX " + constraint + "IDX_STOCK_TICKER ON STOCK" +
                 " (\"TICKER\");");
@@ -142,6 +144,11 @@ public class StockDao extends AbstractDao<Stock, String> {
         if (stockExchange != null) {
             stmt.bindString(13, stockExchange);
         }
+ 
+        Double PricePurchased = entity.getPricePurchased();
+        if (PricePurchased != null) {
+            stmt.bindDouble(14, PricePurchased);
+        }
     }
 
     @Override
@@ -208,6 +215,11 @@ public class StockDao extends AbstractDao<Stock, String> {
         if (stockExchange != null) {
             stmt.bindString(13, stockExchange);
         }
+ 
+        Double PricePurchased = entity.getPricePurchased();
+        if (PricePurchased != null) {
+            stmt.bindDouble(14, PricePurchased);
+        }
     }
 
     @Override
@@ -230,7 +242,8 @@ public class StockDao extends AbstractDao<Stock, String> {
             cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // daysRange
             cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10), // name
             cursor.isNull(offset + 11) ? null : cursor.getLong(offset + 11), // volume
-            cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12) // stockExchange
+            cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12), // stockExchange
+            cursor.isNull(offset + 13) ? null : cursor.getDouble(offset + 13) // PricePurchased
         );
         return entity;
     }
@@ -250,6 +263,7 @@ public class StockDao extends AbstractDao<Stock, String> {
         entity.setName(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
         entity.setVolume(cursor.isNull(offset + 11) ? null : cursor.getLong(offset + 11));
         entity.setStockExchange(cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12));
+        entity.setPricePurchased(cursor.isNull(offset + 13) ? null : cursor.getDouble(offset + 13));
      }
     
     @Override

@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/activity_horizontal_margin_x3"
         android:text="2"
-        android:textColor="@color/percentageColor"
+        android:textColor="@color/percentageColorPositive"
         android:textSize="@dimen/medium_text_size"
         />
 
@@ -32,7 +32,6 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/activity_horizontal_margin_x4"
         android:layout_toRightOf="@+id/price_portfolio"
-        android:text="@string/stock_ticker_default"
         android:textAllCaps="true"
         android:textColor="@color/tickerColor"
         android:textSize="@dimen/medium_text_size"/>
