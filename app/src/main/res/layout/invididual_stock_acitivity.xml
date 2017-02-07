@@ -36,7 +36,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/activity_horizontal_margin_x2"
             android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:text="@string/stock_price_label"/>
+            android:text="@string/stock_price_label"
+            android:textColor="@color/tickerColor"/>
 
         <TextView
             android:id="@+id/price_individual"
@@ -45,7 +46,8 @@
             android:layout_marginLeft="@dimen/activity_horizontal_margin_x.5"
             android:layout_marginTop="@dimen/activity_vertical_margin"
             android:layout_toRightOf="@+id/price_label_individual"
-            android:text="@string/stock_num_default"/>
+            android:text="@string/stock_num_default"
+            android:textColor="@color/stockPriceColor"/>
 
         <TextView
             android:id="@+id/change_label_individual"
@@ -54,7 +56,8 @@
             android:layout_below="@+id/price_label_individual"
             android:layout_marginLeft="@dimen/activity_horizontal_margin_x2"
             android:layout_marginTop="@dimen/activity_vertical_margin_x.5"
-            android:text="@string/stock_change_label"/>
+            android:text="@string/stock_change_label"
+            android:textColor="@color/tickerColor"/>
 
         <TextView
             android:id="@+id/change_individual"
@@ -74,7 +77,7 @@
             android:layout_marginLeft="@dimen/activity_horizontal_margin_x2"
             android:layout_marginTop="@dimen/activity_vertical_margin_x.5"
             android:text="@string/stock_day_high_label"
-            />
+            android:textColor="@color/tickerColor"/>
 
         <TextView
             android:id="@+id/day_high_individual"
@@ -84,7 +87,8 @@
             android:layout_marginLeft="@dimen/activity_horizontal_margin_x.5"
             android:layout_marginTop="@dimen/activity_vertical_margin_x.5"
             android:layout_toRightOf="@id/day_high_label_individual"
-            android:text="@string/stock_num_default"/>
+            android:text="@string/stock_num_default"
+            android:textColor="@color/stockPriceColor"/>
 
         <TextView
             android:id="@+id/day_low_label_individual"
@@ -93,7 +97,8 @@
             android:layout_below="@+id/day_high_label_individual"
             android:layout_marginLeft="@dimen/activity_horizontal_margin_x2"
             android:layout_marginTop="@dimen/activity_vertical_margin_x.5"
-            android:text="@string/stock_day_low_label"/>
+            android:text="@string/stock_day_low_label"
+            android:textColor="@color/tickerColor"/>
 
         <TextView
             android:id="@+id/day_low_individual"
@@ -103,7 +108,8 @@
             android:layout_marginLeft="@dimen/activity_horizontal_margin_x.5"
             android:layout_marginTop="@dimen/activity_vertical_margin_x.5"
             android:layout_toRightOf="@+id/day_low_label_individual"
-            android:text="@string/stock_num_default"/>
+            android:text="@string/stock_num_default"
+            android:textColor="@color/stockPriceColor"/>
 
         <TextView
             android:id="@+id/year_high_label_individual"
@@ -113,7 +119,7 @@
             android:layout_marginLeft="@dimen/activity_horizontal_margin_x2"
             android:layout_marginTop="@dimen/activity_vertical_margin_x.5"
             android:text="@string/stock_year_high_label"
-            />
+            android:textColor="@color/tickerColor"/>
 
         <TextView
             android:id="@+id/year_high_individual"
@@ -123,7 +129,8 @@
             android:layout_marginLeft="@dimen/activity_horizontal_margin_x.5"
             android:layout_marginTop="@dimen/activity_vertical_margin_x.5"
             android:layout_toRightOf="@id/year_high_label_individual"
-            android:text="@string/stock_num_default"/>
+            android:text="@string/stock_num_default"
+            android:textColor="@color/stockPriceColor"/>
 
         <TextView
             android:id="@+id/year_low_label_individual"
@@ -133,7 +140,7 @@
             android:layout_marginLeft="@dimen/activity_horizontal_margin_x2"
             android:layout_marginTop="@dimen/activity_vertical_margin_x.5"
             android:text="@string/stock_year_low_label"
-            />
+            android:textColor="@color/tickerColor"/>
 
         <TextView
             android:id="@+id/year_low_individual"
@@ -143,7 +150,8 @@
             android:layout_marginLeft="@dimen/activity_horizontal_margin_x.5"
             android:layout_marginTop="@dimen/activity_vertical_margin_x.5"
             android:layout_toRightOf="@+id/year_low_label_individual"
-            android:text="@string/stock_num_default"/>
+            android:text="@string/stock_num_default"
+            android:textColor="@color/stockPriceColor"/>
 
         <TextView
             android:id="@+id/market_cap_label_individual"
@@ -152,7 +160,8 @@
             android:layout_below="@id/year_low_label_individual"
             android:layout_marginLeft="@dimen/activity_horizontal_margin_x2"
             android:layout_marginTop="@dimen/activity_vertical_margin_x.5"
-            android:text="@string/stock_market_capitalization_label"/>
+            android:text="@string/stock_market_capitalization_label"
+            android:textColor="@color/tickerColor"/>
 
         <TextView
             android:id="@+id/market_cap_individual"
@@ -162,7 +171,8 @@
             android:layout_marginLeft="@dimen/activity_horizontal_margin_x.5"
             android:layout_marginTop="@dimen/activity_vertical_margin_x.5"
             android:layout_toRightOf="@+id/market_cap_label_individual"
-            android:text="@string/stock_num_default"/>
+            android:text="@string/stock_num_default"
+            android:textColor="@color/stockPriceColor"/>
 
         <TextView
             android:id="@+id/volume_label_individual"
@@ -172,16 +182,18 @@
             android:layout_marginLeft="@dimen/activity_horizontal_margin_x2"
             android:layout_marginTop="@dimen/activity_vertical_margin_x.5"
             android:text="@string/stock_volume_label"
-            />
+            android:textColor="@color/tickerColor"/>
+
         <TextView
             android:id="@+id/volume_individual"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/market_cap_individual"
             android:layout_marginLeft="@dimen/activity_horizontal_margin_x.5"
             android:layout_marginTop="@dimen/activity_vertical_margin_x.5"
             android:layout_toRightOf="@+id/volume_label_individual"
             android:text="@string/stock_num_default"
-            android:layout_below="@id/market_cap_individual"/>
+            android:textColor="@color/stockPriceColor"/>
     </RelativeLayout>
 
 
@@ -197,8 +209,7 @@
         android:inputType="numberDecimal"
         android:maxLength="10"
         android:maxLines="1"
-        android:textColorHint="@color/hintTextColor"
-        />
+        android:textColorHint="@color/hintTextColor"/>
 
     <Button
         android:id="@+id/add_button_individual"
