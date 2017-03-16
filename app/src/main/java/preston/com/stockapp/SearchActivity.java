@@ -16,10 +16,15 @@ import android.widget.Toast;
 
 import com.preston.data.repo.greendao.Stock;
 import com.preston.data.repo.greendao.User;
+import com.preston.data.repo.greendao.UserDao;
 
+import java.util.List;
+
+import preston.com.stockapp.util.Database;
 import preston.com.stockapp.util.SearchLoader;
 import preston.com.stockapp.util.SearchOnClickListener;
 import preston.com.stockapp.util.SearchRecyclerViewAdapter;
+import preston.com.stockapp.util.SyncDataLoader;
 
 /**
  * Created by Alex Preston on 10/4/16.
@@ -27,9 +32,13 @@ import preston.com.stockapp.util.SearchRecyclerViewAdapter;
 
 public class SearchActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Stock>, SearchView.OnQueryTextListener, SearchOnClickListener {
     private User user;
+    private UserDao userDao;
+    private Database database;
     private RecyclerView resultList;
     private SearchRecyclerViewAdapter searchAdapter;
     private static final String QUERY_PARAM = "query";
+    private static final String USERNAME = "username";
+    private static final String STOCK = "stock";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +46,11 @@ public class SearchActivity extends AppCompatActivity implements LoaderManager.L
         setContentView(R.layout.search_results_activity);
 
         searchAdapter = new SearchRecyclerViewAdapter(this);
+
+        //Gets instance of the database
+        database = Database.getInstance(this);
+        database.checkDataBase();
+        userDao = database.getUserDao();
 
         //Create Recycler view, set Layout, and Adapter
         resultList = (RecyclerView) findViewById(R.id.recycler_view_search);
@@ -46,12 +60,40 @@ public class SearchActivity extends AppCompatActivity implements LoaderManager.L
         resultList.setAdapter(searchAdapter);
 
         //Get the passed User
-        user = (User) getIntent().getSerializableExtra("User");
+        Bundle userBundle = new Bundle();
+        userBundle.putString(USERNAME, getIntent().getStringExtra(USERNAME));
+        getUserLoader(userBundle);
+
+
+    }
+
+    public void getUserLoader(Bundle userBundle) {
+        getSupportLoaderManager().restartLoader(R.id.user_loader, userBundle, new LoaderManager.LoaderCallbacks<User>() {
+            @Override
+            public Loader<User> onCreateLoader(int id, final Bundle args) {
+                return new SyncDataLoader<User>(SearchActivity.this) {
+                    @Override
+                    protected User loadData() {
+                        return getUser(args.getString(USERNAME));
+                    }
+                };
+            }
+
+            @Override
+            public void onLoadFinished(Loader<User> loader, User data) {
+                user = data;
+            }
+
+            @Override
+            public void onLoaderReset(Loader<User> loader) {
+
+            }
+        });
 
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)  {
+    public boolean onCreateOptionsMenu(Menu menu) {
 
         MenuInflater inflater = getMenuInflater();
         //Add to action bar if present
@@ -68,21 +110,12 @@ public class SearchActivity extends AppCompatActivity implements LoaderManager.L
         return super.onPrepareOptionsMenu(menu);
     }
 
-    /**
-     * Sets the fonts
-     */
-    public void setFonts() {
-
-        Typeface face = Typeface.createFromAsset(getAssets(), "bondini.ttf");
-
-    }
-
 
     @Override
     public boolean onQueryTextSubmit(String query) {
         Bundle bundle = new Bundle();
         bundle.putString(QUERY_PARAM, query);
-        getSupportLoaderManager().restartLoader(1,bundle, SearchActivity.this).forceLoad();
+        getSupportLoaderManager().restartLoader(1, bundle, SearchActivity.this).forceLoad();
         return true;
     }
 
@@ -118,7 +151,35 @@ public class SearchActivity extends AppCompatActivity implements LoaderManager.L
     @Override
     public void onClick(Stock stockData) {
         Intent intent = new Intent(this, IndividualStockActivity.class);
-        intent.putExtra("Stock", stockData);
+        intent.putExtra(STOCK, stockData);
+        intent.putExtra(USERNAME, user.getEncodedId());
         startActivity(intent);
+    }
+
+    /**
+     * Sets the fonts
+     */
+    public void setFonts() {
+
+        Typeface face = Typeface.createFromAsset(getAssets(), "bondini.ttf");
+
+    }
+
+    /**
+     * @param username
+     * @return
+     */
+    public User getUser(String username) {
+        List<User> userList = userDao.queryBuilder().orderDesc(UserDao.Properties.EncodedId).build().list();
+
+        if (userList.size() > 0) {
+            for (int i = 0; i < userList.size(); i++) {
+                if (userList.get(i).getEncodedId().contentEquals(username)) {
+                    User foundUser = userList.get(i);
+                    return foundUser;
+                }
+            }
+        }
+        return null;
     }
 }

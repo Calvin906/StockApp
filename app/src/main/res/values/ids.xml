@@ -5,4 +5,7 @@
     <item name="login_home" type="id"/>
     <item name="sign_up_home" type="id"/>
     <item name="buttons_home" type="id"/>
+    <item name="user_loader" type="id"/>
+    <item name="stock_loader" type="id"/>
+
 </resources>

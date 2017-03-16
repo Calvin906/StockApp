@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.preston.data.repo.greendao.Stock;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import preston.com.stockapp.R;
@@ -16,11 +17,18 @@ import preston.com.stockapp.R;
 
 public class PortfolioRecyclerViewAdapter extends RecyclerView.Adapter<PortfolioRecyclerViewAdapter.StockViewHolder> {
 
+    private List<Stock> stocks;
+
+    public PortfolioRecyclerViewAdapter() {
+        stocks = new ArrayList<>();
+    }
+
     /**
      * Add stocks to the view
      */
     public void addStocks(List<Stock> stocks) {
-
+        this.stocks = stocks;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -56,9 +64,11 @@ public class PortfolioRecyclerViewAdapter extends RecyclerView.Adapter<Portfolio
 
         }
 
-        public void bindViews(PortfolioRecyclerViewAdapter.StockViewHolder holder, int pos) {
-
-
+        public void bindViews(StockViewHolder holder, int pos) {
+            Stock stock = stocks.get(pos);
+            holder.percentage.setText(stock.getChange().toString());
+            holder.price.setText(stock.getLastTradePrice().toString());
+            holder.ticker.setText(stock.getTicker());
         }
     }
 }

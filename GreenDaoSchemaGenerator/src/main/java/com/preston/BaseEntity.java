@@ -5,9 +5,9 @@ import org.greenrobot.greendao.generator.Property;
 import org.greenrobot.greendao.generator.Schema;
 
 /**
- * Created by jpreston on 9/4/16.
+ * Created by Alex on 9/4/16.
  */
-public abstract class BaseEntity {
+public abstract class BaseEntity   {
     private String name;
     private Property idProperty;
     public BaseEntity(String name) {

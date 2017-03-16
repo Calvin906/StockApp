@@ -6,7 +6,7 @@ import org.greenrobot.greendao.generator.Property;
 import main.java.com.preston.BaseEntity;
 
 /**
- * Created by jpreston on 9/4/16.
+ * Created by Alex on 9/4/16.
  */
 public class StockEntity extends BaseEntity {
 
@@ -34,7 +34,8 @@ public class StockEntity extends BaseEntity {
         entity.addLongProperty("volume");
         entity.addStringProperty("stockExchange");
         entity.addDoubleProperty("PricePurchased");
-        entity.getInterfacesToImplement().add("java.io.Serializable");
+        entity.getInterfacesToImplement().add("android.os.Parcelable");
+        entity.setHasKeepSections(true);
     }
 
     @Override
