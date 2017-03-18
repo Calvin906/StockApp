@@ -9,6 +9,8 @@ import com.preston.data.repo.greendao.DaoSession;
 import com.preston.data.repo.greendao.StockDao;
 import com.preston.data.repo.greendao.UserDao;
 
+import java.io.File;
+
 /**
  * Singleton for the database
  * Created by Alex Preston on 1/26/17.
@@ -19,6 +21,7 @@ public class Database {
     private static Database instance = null;
     private UserDao userDao;
     private StockDao stockDao;
+    private final String MY_PATH = "/Users/Wags/AndroidStudioProjects/StockApp/app/src-gen-dao/";
 
 
     /**
@@ -32,6 +35,7 @@ public class Database {
 
     /**
      * Returns StockDao
+     *
      * @return
      */
     public StockDao getStockDao() {
@@ -51,7 +55,6 @@ public class Database {
                     instance = new Database(context.getApplicationContext());
                 }
             }
-
         }
         return instance;
     }
@@ -73,12 +76,17 @@ public class Database {
     public boolean checkDataBase() {
         SQLiteDatabase checkDB = null;
         try {
-            checkDB = SQLiteDatabase.openDatabase("../app/src-gen-dao", null,
-                    SQLiteDatabase.OPEN_READONLY);
-            checkDB.close();
+            File file = new File(MY_PATH);
+            if (file.exists() && !file.isDirectory()) {
+                checkDB = SQLiteDatabase.openDatabase(MY_PATH, null,
+                        SQLiteDatabase.OPEN_READONLY);
+            } else {
+                setUpDB();
+            }
         } catch (SQLiteException e) {
-            // database doesn't exist yet.
-            setUpDB();
+            if (checkDB != null) {
+                checkDB.close();
+            }
         }
         return checkDB != null;
     }

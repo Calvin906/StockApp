@@ -27,12 +27,18 @@
     <string name="company_name_default">Company Name</string>
     <string name="company_ticker_default">Ticker</string>
     <string name="num_shares_default"># of Desired Shares</string>
-    <string name="date_purchased_default">Date of Purchase</string>
-    <string name="price_purchased_default">Price Purchased At</string>
-    <string name="stock_price_default">$0.00</string>
+    <string name="stock_num_default">$0.00</string>
     <string name="stock_percent_default">+1.0</string>
-    <string name="stock_ticker_default">Googl</string>
-    <string name="stock_name_default">Google</string>
+    <string name="stock_price_label">Price: </string>
+    <string name="stock_change_label">Change: </string>
+    <string name="stock_day_high_label">Day High: </string>
+    <string name="stock_day_low_label">Day Low: </string>
+    <string name="stock_year_high_label">Year High: </string>
+    <string name="stock_year_low_label">Year Low: </string>
+    <string name="stock_market_capitalization_label">Market Cap: </string>
+    <string name="stock_volume_label">Volume: </string>
+
+
 
     <!-- Profit Loss page -->
     <string name="investment_total_text">Investment Total:</string>

@@ -17,7 +17,8 @@
     <color name="black">#000000</color>
 
     <!-- Company name activity colors -->
-    <color name="percentageColor">#43DF05</color>
+    <color name="percentageColorPositive">#43DF05</color>
+    <color name="percentageColorNegative">#FF3838</color>
     <color name="stockPriceColor">#2E66C3</color>
 
 

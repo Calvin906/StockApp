@@ -10,9 +10,8 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:text="@string/stock_ticker_default"
-        android:textSize="@dimen/medium_text_size"
-        android:textAllCaps="true"/>
+        android:textAllCaps="true"
+        android:textSize="@dimen/medium_text_size"/>
 
     <TextView
         android:id="@+id/stock_name_search_views"
@@ -20,7 +19,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/stock_ticker_search_views"
         android:layout_marginLeft="@dimen/activity_horizontal_margin_x1.5"
-        android:text="@string/stock_name_default"
         android:textSize="@dimen/small_text_size"
         />
 
