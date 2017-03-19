@@ -96,7 +96,7 @@ public class PortfolioActivity extends AppCompatActivity implements LoaderManage
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startSearchActivity(user.getUsername());
+                startSearchActivity(user.getEncodedId());
             }
         });
     }
@@ -104,11 +104,11 @@ public class PortfolioActivity extends AppCompatActivity implements LoaderManage
     /**
      * starts the search activity
      *
-     * @param username
+     * @param id
      */
-    private void startSearchActivity(String username) {
+    private void startSearchActivity(String id) {
         Intent intent = new Intent(this, SearchActivity.class);
-        intent.putExtra(USERNAME, username);
+        intent.putExtra(USERNAME, id);
         startActivity(intent);
     }
 
