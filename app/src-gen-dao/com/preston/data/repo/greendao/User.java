@@ -167,10 +167,32 @@ public class User implements android.os.Parcelable {
 
     // KEEP METHODS - put your custom methods here
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.encodedId);
+        dest.writeString(this.email);
+        dest.writeString(this.username);
+        dest.writeString(this.password);
+        dest.writeTypedList(this.stockList);
+    }
+
+    protected User(Parcel in) {
+        this.encodedId = in.readString();
+        this.email = in.readString();
+        this.username = in.readString();
+        this.password = in.readString();
+        this.stockList = in.createTypedArrayList(Stock.CREATOR);
+    }
+
     public static final Creator<User> CREATOR = new Creator<User>() {
         @Override
-        public User createFromParcel(Parcel in) {
-            return new User(in);
+        public User createFromParcel(Parcel source) {
+            return new User(source);
         }
 
         @Override
@@ -179,26 +201,5 @@ public class User implements android.os.Parcelable {
         }
     };
 
-    protected User(Parcel in) {
-        encodedId = in.readString();
-        email = in.readString();
-        username = in.readString();
-        password = in.readString();
-        stockList = in.createTypedArrayList(Stock.CREATOR);
-    }
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(encodedId);
-        dest.writeString(email);
-        dest.writeString(username);
-        dest.writeString(password);
-        dest.writeTypedList(stockList);
-    }
     // KEEP METHODS END
-
 }

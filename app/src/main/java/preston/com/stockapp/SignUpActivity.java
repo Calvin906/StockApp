@@ -25,7 +25,7 @@ import preston.com.stockapp.util.Database;
 
 public class SignUpActivity extends AppCompatActivity {
 
-    private static final String EXTRA_TEXT = "User";
+    private static final String USERNAME = "username";
     private EditText username, email, password, confirmPassword;
     private Button create;
     private TextView greeting;
@@ -114,7 +114,7 @@ public class SignUpActivity extends AppCompatActivity {
                         user.setEmail(email.getText().toString());
                         user.setPassword(password.getText().toString());
                         saveToSQL(user);
-                        goToMyPortfolio(user);
+                        goToMyPortfolio(user.getEncodedId());
                     }
                 }
             }
@@ -134,9 +134,9 @@ public class SignUpActivity extends AppCompatActivity {
     /**
      *Launches the MyPortfolio Activity
      */
-    private void goToMyPortfolio(User userObj) {
+    private void goToMyPortfolio(String id) {
         Intent intent = new Intent(this, PortfolioActivity.class);
-        intent.putExtra(EXTRA_TEXT, userObj);
+        intent.putExtra(USERNAME, id);
         startActivity(intent);
     }
 

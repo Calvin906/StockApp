@@ -29,7 +29,6 @@ import preston.com.stockapp.util.UserDatabaseLoader;
 public class SignInActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<User> {
 
     private static final String TAG = String.format("tag.%s", SignInActivity.class.getName());
-    private static final String EXTRA_TEXT = "User";
     private static final String USERNAME = "username";
     private static final String PASSWORD = "password";
     private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 1;
