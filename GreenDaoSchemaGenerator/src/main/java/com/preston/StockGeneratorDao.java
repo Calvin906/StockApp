@@ -8,7 +8,7 @@ import main.java.com.preston.StockEntities.StockEntity;
 
 public class StockGeneratorDao {
 
-    private static final int CORE_DB_VERSION = 2;
+    private static final int CORE_DB_VERSION = 3;
 
     private static final String DEFAULT_JAVA_PACKAGE = "com.preston.data.repo.greendao";
     private static final String DEFAULT_FILE_LOCATION = "../app/src-gen-dao";

@@ -23,7 +23,7 @@ public class UserEntity extends BaseEntity{
         entity.addStringProperty("email");
         entity.addStringProperty("username");
         entity.addStringProperty("password");
-        entity.getInterfacesToImplement().add("android.os.Parcelable");
+        entity.implementsSerializable();
         entity.setHasKeepSections(true);
     }
 

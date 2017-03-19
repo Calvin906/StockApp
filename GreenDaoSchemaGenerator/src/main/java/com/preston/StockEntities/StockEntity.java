@@ -34,7 +34,7 @@ public class StockEntity extends BaseEntity {
         entity.addLongProperty("volume");
         entity.addStringProperty("stockExchange");
         entity.addDoubleProperty("PricePurchased");
-        entity.getInterfacesToImplement().add("android.os.Parcelable");
+        entity.implementsSerializable();
         entity.setHasKeepSections(true);
     }
 
