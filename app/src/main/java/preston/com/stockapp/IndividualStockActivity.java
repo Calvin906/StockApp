@@ -61,7 +61,7 @@ public class IndividualStockActivity extends AppCompatActivity implements View.O
         database.checkDataBase();
         userDao = database.getUserDao();
 
-        stock = getIntent().getParcelableExtra(STOCK);
+        stock = (Stock) getIntent().getSerializableExtra(STOCK);
         Bundle userBundle = new Bundle();
         userBundle.putString(USERNAME, getIntent().getStringExtra(USERNAME));
         getUserLoader(userBundle);
@@ -109,7 +109,6 @@ public class IndividualStockActivity extends AppCompatActivity implements View.O
      * @param stock
      */
     public void setStock(Stock stock) {
-
         ticker.setText(stock.getTicker());
         name.setText(stock.getName());
         price.setText(String.format("$ %.2f", stock.getLastTradePrice()));
@@ -146,6 +145,7 @@ public class IndividualStockActivity extends AppCompatActivity implements View.O
             public void onClick(View v) {
                 stock.setPricePurchased(Double.parseDouble(addNumPurchased.getText().toString()));
                 database.getStockDao().insertOrReplace(stock);
+                user.update();
                 startPortfolio(user.getEncodedId());
 
             }

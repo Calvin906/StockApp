@@ -9,6 +9,15 @@ import main.java.com.preston.BaseEntity;
  * Created by Alex on 9/4/16.
  */
 public class StockEntity extends BaseEntity {
+    public Property getEncodedId() {
+        return encodedId;
+    }
+
+    public void setEncodedId(Property encodedId) {
+        this.encodedId = encodedId;
+    }
+
+    public Property encodedId;
 
     public StockEntity(String name) {
         super(name);
@@ -16,11 +25,12 @@ public class StockEntity extends BaseEntity {
 
     @Override
     protected Property makeIdProperty(Entity entity) {
-        return entity.addStringProperty("ticker").index().unique().notNull().primaryKey().getProperty();
+        return entity.addStringProperty("ticker").unique().notNull().getProperty();
     }
 
     @Override
     protected void setupEntity(Entity entity) {
+        encodedId = entity.addStringProperty("encodedId").index().notNull().getProperty();
         entity.addLongProperty("dailyVolume");
         entity.addDoubleProperty("change");
         entity.addDoubleProperty("daysLow");
@@ -32,9 +42,8 @@ public class StockEntity extends BaseEntity {
         entity.addStringProperty("daysRange");
         entity.addStringProperty("name");
         entity.addLongProperty("volume");
-        entity.addStringProperty("stockExchange");
         entity.addDoubleProperty("PricePurchased");
-        entity.getInterfacesToImplement().add("android.os.Parcelable");
+        entity.implementsSerializable();
         entity.setHasKeepSections(true);
     }
 

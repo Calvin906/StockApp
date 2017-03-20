@@ -15,7 +15,7 @@ public class UserEntity extends BaseEntity{
 
     @Override
     protected Property makeIdProperty(Entity entity) {
-        return entity.addStringProperty("encodedId").index().unique().notNull().primaryKey().getProperty();
+        return entity.addStringProperty("encodedId").unique().notNull().primaryKey().getProperty();
     }
 
     @Override
@@ -23,7 +23,7 @@ public class UserEntity extends BaseEntity{
         entity.addStringProperty("email");
         entity.addStringProperty("username");
         entity.addStringProperty("password");
-        entity.getInterfacesToImplement().add("android.os.Parcelable");
+        entity.implementsSerializable();
         entity.setHasKeepSections(true);
     }
 
