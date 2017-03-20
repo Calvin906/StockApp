@@ -16,11 +16,13 @@ import java.io.IOException;
 public class SearchLoader extends android.support.v4.content.AsyncTaskLoader<Stock> {
     private StockApi stockApi;
     private String query;
+    private String id;
 
 
-    public SearchLoader(Context context, String query) {
+    public SearchLoader(Context context, String query, String id) {
         super(context);
         this.query = query;
+        this.id = id;
     }
 
     @Override
@@ -49,6 +51,7 @@ public class SearchLoader extends android.support.v4.content.AsyncTaskLoader<Sto
             JSONObject results = queryObj.getJSONObject("results");
             JSONObject quote = results.getJSONObject("quote");
             Stock stock = new Stock();
+            stock.setEncodedId(id);
             stock.setTicker(quote.getString("symbol"));
             stock.setDailyVolume(quote.getLong("AverageDailyVolume"));
             stock.setChange(quote.getDouble("Change"));

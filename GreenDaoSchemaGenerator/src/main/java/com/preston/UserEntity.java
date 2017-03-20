@@ -15,7 +15,7 @@ public class UserEntity extends BaseEntity{
 
     @Override
     protected Property makeIdProperty(Entity entity) {
-        return entity.addStringProperty("encodedId").index().unique().notNull().primaryKey().getProperty();
+        return entity.addStringProperty("encodedId").unique().notNull().primaryKey().getProperty();
     }
 
     @Override

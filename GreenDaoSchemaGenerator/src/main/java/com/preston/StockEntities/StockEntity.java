@@ -16,7 +16,7 @@ public class StockEntity extends BaseEntity {
 
     @Override
     protected Property makeIdProperty(Entity entity) {
-        return entity.addStringProperty("ticker").index().unique().notNull().primaryKey().getProperty();
+        return entity.addStringProperty("ticker").unique().notNull().getProperty();
     }
 
     @Override
@@ -32,7 +32,6 @@ public class StockEntity extends BaseEntity {
         entity.addStringProperty("daysRange");
         entity.addStringProperty("name");
         entity.addLongProperty("volume");
-        entity.addStringProperty("stockExchange");
         entity.addDoubleProperty("PricePurchased");
         entity.implementsSerializable();
         entity.setHasKeepSections(true);

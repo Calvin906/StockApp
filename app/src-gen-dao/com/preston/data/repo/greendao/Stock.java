@@ -12,10 +12,8 @@ import org.greenrobot.greendao.annotation.*;
 @Entity
 public class Stock implements java.io.Serializable {
 
-    @Id
     @NotNull
     @Unique
-    @Index
     private String ticker;
     private Long dailyVolume;
     private Double change;
@@ -28,8 +26,10 @@ public class Stock implements java.io.Serializable {
     private String daysRange;
     private String name;
     private Long volume;
-    private String stockExchange;
     private Double PricePurchased;
+
+    @Id
+    private String encodedId;
 
     // KEEP FIELDS - put your custom fields here
     // KEEP FIELDS END
@@ -38,12 +38,12 @@ public class Stock implements java.io.Serializable {
     public Stock() {
     }
 
-    public Stock(String ticker) {
-        this.ticker = ticker;
+    public Stock(String encodedId) {
+        this.encodedId = encodedId;
     }
 
     @Generated
-    public Stock(String ticker, Long dailyVolume, Double change, Double daysLow, Double daysHigh, Double yearsLow, Double yearsHigh, String marketCapitalization, Double lastTradePrice, String daysRange, String name, Long volume, String stockExchange, Double PricePurchased) {
+    public Stock(String ticker, Long dailyVolume, Double change, Double daysLow, Double daysHigh, Double yearsLow, Double yearsHigh, String marketCapitalization, Double lastTradePrice, String daysRange, String name, Long volume, Double PricePurchased, String encodedId) {
         this.ticker = ticker;
         this.dailyVolume = dailyVolume;
         this.change = change;
@@ -56,8 +56,8 @@ public class Stock implements java.io.Serializable {
         this.daysRange = daysRange;
         this.name = name;
         this.volume = volume;
-        this.stockExchange = stockExchange;
         this.PricePurchased = PricePurchased;
+        this.encodedId = encodedId;
     }
 
     @NotNull
@@ -158,20 +158,20 @@ public class Stock implements java.io.Serializable {
         this.volume = volume;
     }
 
-    public String getStockExchange() {
-        return stockExchange;
-    }
-
-    public void setStockExchange(String stockExchange) {
-        this.stockExchange = stockExchange;
-    }
-
     public Double getPricePurchased() {
         return PricePurchased;
     }
 
     public void setPricePurchased(Double PricePurchased) {
         this.PricePurchased = PricePurchased;
+    }
+
+    public String getEncodedId() {
+        return encodedId;
+    }
+
+    public void setEncodedId(String encodedId) {
+        this.encodedId = encodedId;
     }
 
     // KEEP METHODS - put your custom methods here

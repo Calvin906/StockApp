@@ -48,9 +48,6 @@ public class UserDao extends AbstractDao<User, String> {
                 "\"EMAIL\" TEXT," + // 1: email
                 "\"USERNAME\" TEXT," + // 2: username
                 "\"PASSWORD\" TEXT);"); // 3: password
-        // Add Indexes
-        db.execSQL("CREATE INDEX " + constraint + "IDX_USER_ENCODED_ID ON USER" +
-                " (\"ENCODED_ID\");");
     }
 
     /** Drops the underlying database table. */

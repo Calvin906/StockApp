@@ -25,7 +25,7 @@ public class StockDao extends AbstractDao<Stock, String> {
      * Can be used for QueryBuilder and for referencing column names.
      */
     public static class Properties {
-        public final static Property Ticker = new Property(0, String.class, "ticker", true, "TICKER");
+        public final static Property Ticker = new Property(0, String.class, "ticker", false, "TICKER");
         public final static Property DailyVolume = new Property(1, Long.class, "dailyVolume", false, "DAILY_VOLUME");
         public final static Property Change = new Property(2, Double.class, "change", false, "CHANGE");
         public final static Property DaysLow = new Property(3, Double.class, "daysLow", false, "DAYS_LOW");
@@ -37,8 +37,8 @@ public class StockDao extends AbstractDao<Stock, String> {
         public final static Property DaysRange = new Property(9, String.class, "daysRange", false, "DAYS_RANGE");
         public final static Property Name = new Property(10, String.class, "name", false, "NAME");
         public final static Property Volume = new Property(11, Long.class, "volume", false, "VOLUME");
-        public final static Property StockExchange = new Property(12, String.class, "stockExchange", false, "STOCK_EXCHANGE");
-        public final static Property PricePurchased = new Property(13, Double.class, "PricePurchased", false, "PRICE_PURCHASED");
+        public final static Property PricePurchased = new Property(12, Double.class, "PricePurchased", false, "PRICE_PURCHASED");
+        public final static Property EncodedId = new Property(13, String.class, "encodedId", true, "ENCODED_ID");
     }
 
     private Query<Stock> user_StockListQuery;
@@ -55,7 +55,7 @@ public class StockDao extends AbstractDao<Stock, String> {
     public static void createTable(Database db, boolean ifNotExists) {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"STOCK\" (" + //
-                "\"TICKER\" TEXT PRIMARY KEY NOT NULL UNIQUE ," + // 0: ticker
+                "\"TICKER\" TEXT NOT NULL UNIQUE ," + // 0: ticker
                 "\"DAILY_VOLUME\" INTEGER," + // 1: dailyVolume
                 "\"CHANGE\" REAL," + // 2: change
                 "\"DAYS_LOW\" REAL," + // 3: daysLow
@@ -67,11 +67,8 @@ public class StockDao extends AbstractDao<Stock, String> {
                 "\"DAYS_RANGE\" TEXT," + // 9: daysRange
                 "\"NAME\" TEXT," + // 10: name
                 "\"VOLUME\" INTEGER," + // 11: volume
-                "\"STOCK_EXCHANGE\" TEXT," + // 12: stockExchange
-                "\"PRICE_PURCHASED\" REAL);"); // 13: PricePurchased
-        // Add Indexes
-        db.execSQL("CREATE INDEX " + constraint + "IDX_STOCK_TICKER ON STOCK" +
-                " (\"TICKER\");");
+                "\"PRICE_PURCHASED\" REAL," + // 12: PricePurchased
+                "\"ENCODED_ID\" TEXT PRIMARY KEY NOT NULL );"); // 13: encodedId
     }
 
     /** Drops the underlying database table. */
@@ -140,14 +137,14 @@ public class StockDao extends AbstractDao<Stock, String> {
             stmt.bindLong(12, volume);
         }
  
-        String stockExchange = entity.getStockExchange();
-        if (stockExchange != null) {
-            stmt.bindString(13, stockExchange);
-        }
- 
         Double PricePurchased = entity.getPricePurchased();
         if (PricePurchased != null) {
-            stmt.bindDouble(14, PricePurchased);
+            stmt.bindDouble(13, PricePurchased);
+        }
+ 
+        String encodedId = entity.getEncodedId();
+        if (encodedId != null) {
+            stmt.bindString(14, encodedId);
         }
     }
 
@@ -211,20 +208,20 @@ public class StockDao extends AbstractDao<Stock, String> {
             stmt.bindLong(12, volume);
         }
  
-        String stockExchange = entity.getStockExchange();
-        if (stockExchange != null) {
-            stmt.bindString(13, stockExchange);
-        }
- 
         Double PricePurchased = entity.getPricePurchased();
         if (PricePurchased != null) {
-            stmt.bindDouble(14, PricePurchased);
+            stmt.bindDouble(13, PricePurchased);
+        }
+ 
+        String encodedId = entity.getEncodedId();
+        if (encodedId != null) {
+            stmt.bindString(14, encodedId);
         }
     }
 
     @Override
     public String readKey(Cursor cursor, int offset) {
-        return cursor.getString(offset + 0);
+        return cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13);
     }    
 
     @Override
@@ -242,8 +239,8 @@ public class StockDao extends AbstractDao<Stock, String> {
             cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // daysRange
             cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10), // name
             cursor.isNull(offset + 11) ? null : cursor.getLong(offset + 11), // volume
-            cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12), // stockExchange
-            cursor.isNull(offset + 13) ? null : cursor.getDouble(offset + 13) // PricePurchased
+            cursor.isNull(offset + 12) ? null : cursor.getDouble(offset + 12), // PricePurchased
+            cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13) // encodedId
         );
         return entity;
     }
@@ -262,19 +259,19 @@ public class StockDao extends AbstractDao<Stock, String> {
         entity.setDaysRange(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
         entity.setName(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
         entity.setVolume(cursor.isNull(offset + 11) ? null : cursor.getLong(offset + 11));
-        entity.setStockExchange(cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12));
-        entity.setPricePurchased(cursor.isNull(offset + 13) ? null : cursor.getDouble(offset + 13));
+        entity.setPricePurchased(cursor.isNull(offset + 12) ? null : cursor.getDouble(offset + 12));
+        entity.setEncodedId(cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13));
      }
     
     @Override
     protected final String updateKeyAfterInsert(Stock entity, long rowId) {
-        return entity.getTicker();
+        return entity.getEncodedId();
     }
     
     @Override
     public String getKey(Stock entity) {
         if(entity != null) {
-            return entity.getTicker();
+            return entity.getEncodedId();
         } else {
             return null;
         }
@@ -282,7 +279,7 @@ public class StockDao extends AbstractDao<Stock, String> {
 
     @Override
     public boolean hasKey(Stock entity) {
-        throw new UnsupportedOperationException("Unsupported for entities with a non-null key");
+        return entity.getEncodedId() != null;
     }
 
     @Override
@@ -291,16 +288,16 @@ public class StockDao extends AbstractDao<Stock, String> {
     }
     
     /** Internal query to resolve the "stockList" to-many relationship of User. */
-    public List<Stock> _queryUser_StockList(String ticker) {
+    public List<Stock> _queryUser_StockList(String encodedId) {
         synchronized (this) {
             if (user_StockListQuery == null) {
                 QueryBuilder<Stock> queryBuilder = queryBuilder();
-                queryBuilder.where(Properties.Ticker.eq(null));
+                queryBuilder.where(Properties.EncodedId.eq(null));
                 user_StockListQuery = queryBuilder.build();
             }
         }
         Query<Stock> query = user_StockListQuery.forCurrentThread();
-        query.setParameter(0, ticker);
+        query.setParameter(0, encodedId);
         return query.list();
     }
 

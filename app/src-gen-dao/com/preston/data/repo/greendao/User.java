@@ -19,7 +19,6 @@ public class User implements java.io.Serializable {
     @Id
     @NotNull
     @Unique
-    @Index
     private String encodedId;
     private String email;
     private String username;
@@ -34,7 +33,7 @@ public class User implements java.io.Serializable {
     private transient UserDao myDao;
 
     @ToMany(joinProperties = {
-        @JoinProperty(name = "encodedId", referencedName = "ticker")
+        @JoinProperty(name = "encodedId", referencedName = "encodedId")
     })
     private List<Stock> stockList;
 

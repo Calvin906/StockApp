@@ -126,7 +126,7 @@ public class SearchActivity extends AppCompatActivity implements LoaderManager.L
 
     @Override
     public Loader<Stock> onCreateLoader(int id, Bundle args) {
-        return new SearchLoader(SearchActivity.this, args.getString(QUERY_PARAM));
+        return new SearchLoader(SearchActivity.this, args.getString(QUERY_PARAM), user.getEncodedId());
     }
 
     @Override
