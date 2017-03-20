@@ -15,6 +15,10 @@ public class Stock implements java.io.Serializable {
     @NotNull
     @Unique
     private String ticker;
+
+    @NotNull
+    @Index
+    private String encodedId;
     private Long dailyVolume;
     private Double change;
     private Double daysLow;
@@ -28,9 +32,6 @@ public class Stock implements java.io.Serializable {
     private Long volume;
     private Double PricePurchased;
 
-    @Id
-    private String encodedId;
-
     // KEEP FIELDS - put your custom fields here
     // KEEP FIELDS END
 
@@ -38,13 +39,10 @@ public class Stock implements java.io.Serializable {
     public Stock() {
     }
 
-    public Stock(String encodedId) {
-        this.encodedId = encodedId;
-    }
-
     @Generated
-    public Stock(String ticker, Long dailyVolume, Double change, Double daysLow, Double daysHigh, Double yearsLow, Double yearsHigh, String marketCapitalization, Double lastTradePrice, String daysRange, String name, Long volume, Double PricePurchased, String encodedId) {
+    public Stock(String ticker, String encodedId, Long dailyVolume, Double change, Double daysLow, Double daysHigh, Double yearsLow, Double yearsHigh, String marketCapitalization, Double lastTradePrice, String daysRange, String name, Long volume, Double PricePurchased) {
         this.ticker = ticker;
+        this.encodedId = encodedId;
         this.dailyVolume = dailyVolume;
         this.change = change;
         this.daysLow = daysLow;
@@ -57,7 +55,6 @@ public class Stock implements java.io.Serializable {
         this.name = name;
         this.volume = volume;
         this.PricePurchased = PricePurchased;
-        this.encodedId = encodedId;
     }
 
     @NotNull
@@ -68,6 +65,16 @@ public class Stock implements java.io.Serializable {
     /** Not-null value; ensure this value is available before it is saved to the database. */
     public void setTicker(@NotNull String ticker) {
         this.ticker = ticker;
+    }
+
+    @NotNull
+    public String getEncodedId() {
+        return encodedId;
+    }
+
+    /** Not-null value; ensure this value is available before it is saved to the database. */
+    public void setEncodedId(@NotNull String encodedId) {
+        this.encodedId = encodedId;
     }
 
     public Long getDailyVolume() {
@@ -164,14 +171,6 @@ public class Stock implements java.io.Serializable {
 
     public void setPricePurchased(Double PricePurchased) {
         this.PricePurchased = PricePurchased;
-    }
-
-    public String getEncodedId() {
-        return encodedId;
-    }
-
-    public void setEncodedId(String encodedId) {
-        this.encodedId = encodedId;
     }
 
     // KEEP METHODS - put your custom methods here

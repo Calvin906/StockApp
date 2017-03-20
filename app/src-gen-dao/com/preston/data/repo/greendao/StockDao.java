@@ -16,7 +16,7 @@ import org.greenrobot.greendao.query.QueryBuilder;
 /** 
  * DAO for table "STOCK".
 */
-public class StockDao extends AbstractDao<Stock, String> {
+public class StockDao extends AbstractDao<Stock, Void> {
 
     public static final String TABLENAME = "STOCK";
 
@@ -26,22 +26,22 @@ public class StockDao extends AbstractDao<Stock, String> {
      */
     public static class Properties {
         public final static Property Ticker = new Property(0, String.class, "ticker", false, "TICKER");
-        public final static Property DailyVolume = new Property(1, Long.class, "dailyVolume", false, "DAILY_VOLUME");
-        public final static Property Change = new Property(2, Double.class, "change", false, "CHANGE");
-        public final static Property DaysLow = new Property(3, Double.class, "daysLow", false, "DAYS_LOW");
-        public final static Property DaysHigh = new Property(4, Double.class, "daysHigh", false, "DAYS_HIGH");
-        public final static Property YearsLow = new Property(5, Double.class, "yearsLow", false, "YEARS_LOW");
-        public final static Property YearsHigh = new Property(6, Double.class, "yearsHigh", false, "YEARS_HIGH");
-        public final static Property MarketCapitalization = new Property(7, String.class, "marketCapitalization", false, "MARKET_CAPITALIZATION");
-        public final static Property LastTradePrice = new Property(8, Double.class, "lastTradePrice", false, "LAST_TRADE_PRICE");
-        public final static Property DaysRange = new Property(9, String.class, "daysRange", false, "DAYS_RANGE");
-        public final static Property Name = new Property(10, String.class, "name", false, "NAME");
-        public final static Property Volume = new Property(11, Long.class, "volume", false, "VOLUME");
-        public final static Property PricePurchased = new Property(12, Double.class, "PricePurchased", false, "PRICE_PURCHASED");
-        public final static Property EncodedId = new Property(13, String.class, "encodedId", true, "ENCODED_ID");
+        public final static Property EncodedId = new Property(1, String.class, "encodedId", false, "ENCODED_ID");
+        public final static Property DailyVolume = new Property(2, Long.class, "dailyVolume", false, "DAILY_VOLUME");
+        public final static Property Change = new Property(3, Double.class, "change", false, "CHANGE");
+        public final static Property DaysLow = new Property(4, Double.class, "daysLow", false, "DAYS_LOW");
+        public final static Property DaysHigh = new Property(5, Double.class, "daysHigh", false, "DAYS_HIGH");
+        public final static Property YearsLow = new Property(6, Double.class, "yearsLow", false, "YEARS_LOW");
+        public final static Property YearsHigh = new Property(7, Double.class, "yearsHigh", false, "YEARS_HIGH");
+        public final static Property MarketCapitalization = new Property(8, String.class, "marketCapitalization", false, "MARKET_CAPITALIZATION");
+        public final static Property LastTradePrice = new Property(9, Double.class, "lastTradePrice", false, "LAST_TRADE_PRICE");
+        public final static Property DaysRange = new Property(10, String.class, "daysRange", false, "DAYS_RANGE");
+        public final static Property Name = new Property(11, String.class, "name", false, "NAME");
+        public final static Property Volume = new Property(12, Long.class, "volume", false, "VOLUME");
+        public final static Property PricePurchased = new Property(13, Double.class, "PricePurchased", false, "PRICE_PURCHASED");
     }
 
-    private Query<Stock> user_StockListQuery;
+    private Query<Stock> user_StocksQuery;
 
     public StockDao(DaoConfig config) {
         super(config);
@@ -56,19 +56,22 @@ public class StockDao extends AbstractDao<Stock, String> {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"STOCK\" (" + //
                 "\"TICKER\" TEXT NOT NULL UNIQUE ," + // 0: ticker
-                "\"DAILY_VOLUME\" INTEGER," + // 1: dailyVolume
-                "\"CHANGE\" REAL," + // 2: change
-                "\"DAYS_LOW\" REAL," + // 3: daysLow
-                "\"DAYS_HIGH\" REAL," + // 4: daysHigh
-                "\"YEARS_LOW\" REAL," + // 5: yearsLow
-                "\"YEARS_HIGH\" REAL," + // 6: yearsHigh
-                "\"MARKET_CAPITALIZATION\" TEXT," + // 7: marketCapitalization
-                "\"LAST_TRADE_PRICE\" REAL," + // 8: lastTradePrice
-                "\"DAYS_RANGE\" TEXT," + // 9: daysRange
-                "\"NAME\" TEXT," + // 10: name
-                "\"VOLUME\" INTEGER," + // 11: volume
-                "\"PRICE_PURCHASED\" REAL," + // 12: PricePurchased
-                "\"ENCODED_ID\" TEXT PRIMARY KEY NOT NULL );"); // 13: encodedId
+                "\"ENCODED_ID\" TEXT NOT NULL ," + // 1: encodedId
+                "\"DAILY_VOLUME\" INTEGER," + // 2: dailyVolume
+                "\"CHANGE\" REAL," + // 3: change
+                "\"DAYS_LOW\" REAL," + // 4: daysLow
+                "\"DAYS_HIGH\" REAL," + // 5: daysHigh
+                "\"YEARS_LOW\" REAL," + // 6: yearsLow
+                "\"YEARS_HIGH\" REAL," + // 7: yearsHigh
+                "\"MARKET_CAPITALIZATION\" TEXT," + // 8: marketCapitalization
+                "\"LAST_TRADE_PRICE\" REAL," + // 9: lastTradePrice
+                "\"DAYS_RANGE\" TEXT," + // 10: daysRange
+                "\"NAME\" TEXT," + // 11: name
+                "\"VOLUME\" INTEGER," + // 12: volume
+                "\"PRICE_PURCHASED\" REAL);"); // 13: PricePurchased
+        // Add Indexes
+        db.execSQL("CREATE INDEX " + constraint + "IDX_STOCK_ENCODED_ID ON STOCK" +
+                " (\"ENCODED_ID\");");
     }
 
     /** Drops the underlying database table. */
@@ -81,70 +84,66 @@ public class StockDao extends AbstractDao<Stock, String> {
     protected final void bindValues(DatabaseStatement stmt, Stock entity) {
         stmt.clearBindings();
         stmt.bindString(1, entity.getTicker());
+        stmt.bindString(2, entity.getEncodedId());
  
         Long dailyVolume = entity.getDailyVolume();
         if (dailyVolume != null) {
-            stmt.bindLong(2, dailyVolume);
+            stmt.bindLong(3, dailyVolume);
         }
  
         Double change = entity.getChange();
         if (change != null) {
-            stmt.bindDouble(3, change);
+            stmt.bindDouble(4, change);
         }
  
         Double daysLow = entity.getDaysLow();
         if (daysLow != null) {
-            stmt.bindDouble(4, daysLow);
+            stmt.bindDouble(5, daysLow);
         }
  
         Double daysHigh = entity.getDaysHigh();
         if (daysHigh != null) {
-            stmt.bindDouble(5, daysHigh);
+            stmt.bindDouble(6, daysHigh);
         }
  
         Double yearsLow = entity.getYearsLow();
         if (yearsLow != null) {
-            stmt.bindDouble(6, yearsLow);
+            stmt.bindDouble(7, yearsLow);
         }
  
         Double yearsHigh = entity.getYearsHigh();
         if (yearsHigh != null) {
-            stmt.bindDouble(7, yearsHigh);
+            stmt.bindDouble(8, yearsHigh);
         }
  
         String marketCapitalization = entity.getMarketCapitalization();
         if (marketCapitalization != null) {
-            stmt.bindString(8, marketCapitalization);
+            stmt.bindString(9, marketCapitalization);
         }
  
         Double lastTradePrice = entity.getLastTradePrice();
         if (lastTradePrice != null) {
-            stmt.bindDouble(9, lastTradePrice);
+            stmt.bindDouble(10, lastTradePrice);
         }
  
         String daysRange = entity.getDaysRange();
         if (daysRange != null) {
-            stmt.bindString(10, daysRange);
+            stmt.bindString(11, daysRange);
         }
  
         String name = entity.getName();
         if (name != null) {
-            stmt.bindString(11, name);
+            stmt.bindString(12, name);
         }
  
         Long volume = entity.getVolume();
         if (volume != null) {
-            stmt.bindLong(12, volume);
+            stmt.bindLong(13, volume);
         }
  
         Double PricePurchased = entity.getPricePurchased();
         if (PricePurchased != null) {
-            stmt.bindDouble(13, PricePurchased);
-        }
- 
-        String encodedId = entity.getEncodedId();
-        if (encodedId != null) {
-            stmt.bindString(14, encodedId);
+            stmt.bindDouble(14, PricePurchased);
         }
     }
 
@@ -152,95 +151,91 @@ public class StockDao extends AbstractDao<Stock, String> {
     protected final void bindValues(SQLiteStatement stmt, Stock entity) {
         stmt.clearBindings();
         stmt.bindString(1, entity.getTicker());
+        stmt.bindString(2, entity.getEncodedId());
  
         Long dailyVolume = entity.getDailyVolume();
         if (dailyVolume != null) {
-            stmt.bindLong(2, dailyVolume);
+            stmt.bindLong(3, dailyVolume);
         }
  
         Double change = entity.getChange();
         if (change != null) {
-            stmt.bindDouble(3, change);
+            stmt.bindDouble(4, change);
         }
  
         Double daysLow = entity.getDaysLow();
         if (daysLow != null) {
-            stmt.bindDouble(4, daysLow);
+            stmt.bindDouble(5, daysLow);
         }
  
         Double daysHigh = entity.getDaysHigh();
         if (daysHigh != null) {
-            stmt.bindDouble(5, daysHigh);
+            stmt.bindDouble(6, daysHigh);
         }
  
         Double yearsLow = entity.getYearsLow();
         if (yearsLow != null) {
-            stmt.bindDouble(6, yearsLow);
+            stmt.bindDouble(7, yearsLow);
         }
  
         Double yearsHigh = entity.getYearsHigh();
         if (yearsHigh != null) {
-            stmt.bindDouble(7, yearsHigh);
+            stmt.bindDouble(8, yearsHigh);
         }
  
         String marketCapitalization = entity.getMarketCapitalization();
         if (marketCapitalization != null) {
-            stmt.bindString(8, marketCapitalization);
+            stmt.bindString(9, marketCapitalization);
         }
  
         Double lastTradePrice = entity.getLastTradePrice();
         if (lastTradePrice != null) {
-            stmt.bindDouble(9, lastTradePrice);
+            stmt.bindDouble(10, lastTradePrice);
         }
  
         String daysRange = entity.getDaysRange();
         if (daysRange != null) {
-            stmt.bindString(10, daysRange);
+            stmt.bindString(11, daysRange);
         }
  
         String name = entity.getName();
         if (name != null) {
-            stmt.bindString(11, name);
+            stmt.bindString(12, name);
         }
  
         Long volume = entity.getVolume();
         if (volume != null) {
-            stmt.bindLong(12, volume);
+            stmt.bindLong(13, volume);
         }
  
         Double PricePurchased = entity.getPricePurchased();
         if (PricePurchased != null) {
-            stmt.bindDouble(13, PricePurchased);
-        }
- 
-        String encodedId = entity.getEncodedId();
-        if (encodedId != null) {
-            stmt.bindString(14, encodedId);
+            stmt.bindDouble(14, PricePurchased);
         }
     }
 
     @Override
-    public String readKey(Cursor cursor, int offset) {
-        return cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13);
+    public Void readKey(Cursor cursor, int offset) {
+        return null;
     }    
 
     @Override
     public Stock readEntity(Cursor cursor, int offset) {
         Stock entity = new Stock( //
             cursor.getString(offset + 0), // ticker
-            cursor.isNull(offset + 1) ? null : cursor.getLong(offset + 1), // dailyVolume
-            cursor.isNull(offset + 2) ? null : cursor.getDouble(offset + 2), // change
-            cursor.isNull(offset + 3) ? null : cursor.getDouble(offset + 3), // daysLow
-            cursor.isNull(offset + 4) ? null : cursor.getDouble(offset + 4), // daysHigh
-            cursor.isNull(offset + 5) ? null : cursor.getDouble(offset + 5), // yearsLow
-            cursor.isNull(offset + 6) ? null : cursor.getDouble(offset + 6), // yearsHigh
-            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // marketCapitalization
-            cursor.isNull(offset + 8) ? null : cursor.getDouble(offset + 8), // lastTradePrice
-            cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // daysRange
-            cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10), // name
-            cursor.isNull(offset + 11) ? null : cursor.getLong(offset + 11), // volume
-            cursor.isNull(offset + 12) ? null : cursor.getDouble(offset + 12), // PricePurchased
-            cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13) // encodedId
+            cursor.getString(offset + 1), // encodedId
+            cursor.isNull(offset + 2) ? null : cursor.getLong(offset + 2), // dailyVolume
+            cursor.isNull(offset + 3) ? null : cursor.getDouble(offset + 3), // change
+            cursor.isNull(offset + 4) ? null : cursor.getDouble(offset + 4), // daysLow
+            cursor.isNull(offset + 5) ? null : cursor.getDouble(offset + 5), // daysHigh
+            cursor.isNull(offset + 6) ? null : cursor.getDouble(offset + 6), // yearsLow
+            cursor.isNull(offset + 7) ? null : cursor.getDouble(offset + 7), // yearsHigh
+            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // marketCapitalization
+            cursor.isNull(offset + 9) ? null : cursor.getDouble(offset + 9), // lastTradePrice
+            cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10), // daysRange
+            cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11), // name
+            cursor.isNull(offset + 12) ? null : cursor.getLong(offset + 12), // volume
+            cursor.isNull(offset + 13) ? null : cursor.getDouble(offset + 13) // PricePurchased
         );
         return entity;
     }
@@ -248,38 +243,36 @@ public class StockDao extends AbstractDao<Stock, String> {
     @Override
     public void readEntity(Cursor cursor, Stock entity, int offset) {
         entity.setTicker(cursor.getString(offset + 0));
-        entity.setDailyVolume(cursor.isNull(offset + 1) ? null : cursor.getLong(offset + 1));
-        entity.setChange(cursor.isNull(offset + 2) ? null : cursor.getDouble(offset + 2));
-        entity.setDaysLow(cursor.isNull(offset + 3) ? null : cursor.getDouble(offset + 3));
-        entity.setDaysHigh(cursor.isNull(offset + 4) ? null : cursor.getDouble(offset + 4));
-        entity.setYearsLow(cursor.isNull(offset + 5) ? null : cursor.getDouble(offset + 5));
-        entity.setYearsHigh(cursor.isNull(offset + 6) ? null : cursor.getDouble(offset + 6));
-        entity.setMarketCapitalization(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
-        entity.setLastTradePrice(cursor.isNull(offset + 8) ? null : cursor.getDouble(offset + 8));
-        entity.setDaysRange(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
-        entity.setName(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
-        entity.setVolume(cursor.isNull(offset + 11) ? null : cursor.getLong(offset + 11));
-        entity.setPricePurchased(cursor.isNull(offset + 12) ? null : cursor.getDouble(offset + 12));
-        entity.setEncodedId(cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13));
+        entity.setEncodedId(cursor.getString(offset + 1));
+        entity.setDailyVolume(cursor.isNull(offset + 2) ? null : cursor.getLong(offset + 2));
+        entity.setChange(cursor.isNull(offset + 3) ? null : cursor.getDouble(offset + 3));
+        entity.setDaysLow(cursor.isNull(offset + 4) ? null : cursor.getDouble(offset + 4));
+        entity.setDaysHigh(cursor.isNull(offset + 5) ? null : cursor.getDouble(offset + 5));
+        entity.setYearsLow(cursor.isNull(offset + 6) ? null : cursor.getDouble(offset + 6));
+        entity.setYearsHigh(cursor.isNull(offset + 7) ? null : cursor.getDouble(offset + 7));
+        entity.setMarketCapitalization(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
+        entity.setLastTradePrice(cursor.isNull(offset + 9) ? null : cursor.getDouble(offset + 9));
+        entity.setDaysRange(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
+        entity.setName(cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11));
+        entity.setVolume(cursor.isNull(offset + 12) ? null : cursor.getLong(offset + 12));
+        entity.setPricePurchased(cursor.isNull(offset + 13) ? null : cursor.getDouble(offset + 13));
      }
     
     @Override
-    protected final String updateKeyAfterInsert(Stock entity, long rowId) {
-        return entity.getEncodedId();
+    protected final Void updateKeyAfterInsert(Stock entity, long rowId) {
+        // Unsupported or missing PK type
+        return null;
     }
     
     @Override
-    public String getKey(Stock entity) {
-        if(entity != null) {
-            return entity.getEncodedId();
-        } else {
-            return null;
-        }
+    public Void getKey(Stock entity) {
+        return null;
     }
 
     @Override
     public boolean hasKey(Stock entity) {
-        return entity.getEncodedId() != null;
+        // TODO
+        return false;
     }
 
     @Override
@@ -287,16 +280,16 @@ public class StockDao extends AbstractDao<Stock, String> {
         return true;
     }
     
-    /** Internal query to resolve the "stockList" to-many relationship of User. */
-    public List<Stock> _queryUser_StockList(String encodedId) {
+    /** Internal query to resolve the "stocks" to-many relationship of User. */
+    public List<Stock> _queryUser_Stocks(String encodedId) {
         synchronized (this) {
-            if (user_StockListQuery == null) {
+            if (user_StocksQuery == null) {
                 QueryBuilder<Stock> queryBuilder = queryBuilder();
                 queryBuilder.where(Properties.EncodedId.eq(null));
-                user_StockListQuery = queryBuilder.build();
+                user_StocksQuery = queryBuilder.build();
             }
         }
-        Query<Stock> query = user_StockListQuery.forCurrentThread();
+        Query<Stock> query = user_StocksQuery.forCurrentThread();
         query.setParameter(0, encodedId);
         return query.list();
     }

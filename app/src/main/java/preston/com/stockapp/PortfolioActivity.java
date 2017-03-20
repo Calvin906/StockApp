@@ -11,6 +11,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 
+import com.preston.data.repo.greendao.Stock;
+import com.preston.data.repo.greendao.StockDao;
 import com.preston.data.repo.greendao.User;
 import com.preston.data.repo.greendao.UserDao;
 
@@ -32,6 +34,7 @@ public class PortfolioActivity extends AppCompatActivity implements LoaderManage
     private Button refresh, add;
     private User user;
     private UserDao userDao;
+    private StockDao stockDao;
     private Database database;
 
 
@@ -44,6 +47,7 @@ public class PortfolioActivity extends AppCompatActivity implements LoaderManage
         database = Database.getInstance(this);
         database.checkDataBase();
         userDao = database.getUserDao();
+        stockDao = database.getStockDao();
 
         //Get the User
         Bundle userBundle = new Bundle();
@@ -64,6 +68,7 @@ public class PortfolioActivity extends AppCompatActivity implements LoaderManage
         pRecyclerView.setAdapter(pAdapter);
         pRecyclerView.setLayoutManager(llm);
 
+        getStock("googl");
 
         addStocks();
         setFonts();
@@ -141,6 +146,17 @@ public class PortfolioActivity extends AppCompatActivity implements LoaderManage
     @Override
     public void onLoaderReset(Loader<User> loader) {
 
+    }
+
+    public Stock getStock(String ticker){
+        List<Stock> stockList = stockDao.queryBuilder().orderDesc(StockDao.Properties.Ticker).build().list();
+        if (stockList.size() > 0){
+            for (int i = 0; i < stockList.size(); i++){
+                Stock s = stockList.get(i);
+                return s;
+            }
+        }
+        return null;
     }
 
     /**

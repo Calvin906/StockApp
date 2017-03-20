@@ -9,6 +9,15 @@ import main.java.com.preston.BaseEntity;
  * Created by Alex on 9/4/16.
  */
 public class StockEntity extends BaseEntity {
+    public Property getEncodedId() {
+        return encodedId;
+    }
+
+    public void setEncodedId(Property encodedId) {
+        this.encodedId = encodedId;
+    }
+
+    public Property encodedId;
 
     public StockEntity(String name) {
         super(name);
@@ -21,6 +30,7 @@ public class StockEntity extends BaseEntity {
 
     @Override
     protected void setupEntity(Entity entity) {
+        encodedId = entity.addStringProperty("encodedId").index().notNull().getProperty();
         entity.addLongProperty("dailyVolume");
         entity.addDoubleProperty("change");
         entity.addDoubleProperty("daysLow");
