@@ -145,6 +145,7 @@ public class IndividualStockActivity extends AppCompatActivity implements View.O
             public void onClick(View v) {
                 stock.setPricePurchased(Double.parseDouble(addNumPurchased.getText().toString()));
                 database.getStockDao().insertOrReplace(stock);
+                user.update();
                 startPortfolio(user.getEncodedId());
 
             }

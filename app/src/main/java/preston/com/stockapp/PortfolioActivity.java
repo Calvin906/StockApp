@@ -68,9 +68,9 @@ public class PortfolioActivity extends AppCompatActivity implements LoaderManage
         pRecyclerView.setAdapter(pAdapter);
         pRecyclerView.setLayoutManager(llm);
 
-        getStock("googl");
+        getStock();
 
-        addStocks();
+//        addStocks();
         setFonts();
     }
 
@@ -83,11 +83,10 @@ public class PortfolioActivity extends AppCompatActivity implements LoaderManage
     }
 
     public void addStocks() {
-//        if (user.getStockList() != null) {
-//            List<Stock> stocks = user.getStockList();
+//        if (user.getStocks() != null) {
+//            List<Stock> stocks = user.getStocks();
 //            pAdapter.addStocks(stocks);
 //        } else {
-//
 //        }
 
     }
@@ -148,7 +147,7 @@ public class PortfolioActivity extends AppCompatActivity implements LoaderManage
 
     }
 
-    public Stock getStock(String ticker){
+    public Stock getStock(){
         List<Stock> stockList = stockDao.queryBuilder().orderDesc(StockDao.Properties.Ticker).build().list();
         if (stockList.size() > 0){
             for (int i = 0; i < stockList.size(); i++){
